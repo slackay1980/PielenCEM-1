@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
@@ -24,7 +25,10 @@ public class mainWindowController {
     private Button btnWindow;
 
     @FXML
-    private AnchorPane mainPane;
+    private ScrollPane mainPane;
+
+    @FXML
+    private  AnchorPane  detailsPane;
 
 
 
@@ -60,8 +64,11 @@ public class mainWindowController {
 
     try {
 
-        AnchorPane ap = FXMLLoader.load(getClass().getResource("/view/dialog.fxml"));
-        mainPane.getChildren().setAll(ap);
+        Parent ap = FXMLLoader.load(getClass().getResource("/view/dialog.fxml"));
+        //mainPane.setContent(ap);
+
+        detailsPane.getChildren().setAll(ap);
+
     }
     catch (Exception e) {
 
