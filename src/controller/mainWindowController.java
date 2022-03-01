@@ -1,17 +1,17 @@
 package controller;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
@@ -83,21 +83,99 @@ public class mainWindowController {
     @FXML
     private void initialize()
     {
-        TreeItem<String> root = new TreeItem<String>("PIELEN CEM");
-        root.setExpanded(true);
+        prepareTreeView();
+        setHandlerOnTreeView();
 
-        TreeItem<String> bestellung = new TreeItem<String>("Bestellung");
-        bestellung.setGraphic(new Rectangle(10.0,10.0, Color.RED));
-        bestellung.getChildren().add(new TreeItem<String>("neue Bestellung eingeben"));
-        bestellung.getChildren().add(new TreeItem<String>("neue bestellung eingeben (Kurzform)"));
-        bestellung.setExpanded(true);
-
-        root.getChildren().add(bestellung);
-        controlList.setRoot(root);
 
 
 
     }
+
+    private void prepareTreeView() {
+
+        TreeItem<String> root = new TreeItem<String>("PIELEN CEM");
+        root.setExpanded(true);
+
+        TreeItem<String> orderCiment = new TreeItem<String>("Tourenerfassung");
+        //order.setGraphic(new Rectangle(10.0,10.0, Color.BLUE));
+        orderCiment.getChildren().add(new TreeItem<String>("alle Auftträge"));
+        orderCiment.getChildren().add(new TreeItem<String>("alle auf morgen"));
+        orderCiment.getChildren().add(new TreeItem<String>("alle verplant"));
+        orderCiment.getChildren().add(new TreeItem<String>("alle offen"));
+        orderCiment.setExpanded(true);
+
+        TreeItem<String> inputOrder = new TreeItem<String>("Bestellung");
+        //bestellung.setGraphic(new Rectangle(10.0,10.0, Color.BLUE));
+        inputOrder.getChildren().add(new TreeItem<String>("Bestellung eingeben"));
+        inputOrder.getChildren().add(new TreeItem<String>("Bestellung eingeben (Kurzform)"));
+        inputOrder.setExpanded(true);
+
+        TreeItem<String> customer = new TreeItem<String>("Kunde");
+        //bestellung.setGraphic(new Rectangle(10.0,10.0, Color.BLUE));
+        customer.getChildren().add(new TreeItem<String>("Anlegen"));
+        customer.getChildren().add(new TreeItem<String>("Neue Station "));
+        customer.getChildren().add(new TreeItem<String>("Station redaktieren"));
+        customer.getChildren().add(new TreeItem<String>("Kundendaten ändern"));
+        customer.getChildren().add(new TreeItem<String>("Kundendaten löschen"));
+        customer.setExpanded(false);
+
+        TreeItem<String> transporter = new TreeItem<String>("Spedition");
+        //bestellung.setGraphic(new Rectangle(10.0,10.0, Color.BLUE));
+        transporter.getChildren().add(new TreeItem<String>("Anlegen"));
+        transporter.getChildren().add(new TreeItem<String>("Spedition redaktieren"));
+        transporter.getChildren().add(new TreeItem<String>("Kundendaten löschen"));
+        transporter.setExpanded(true);
+
+        TreeItem<String> relationFreight = new TreeItem<String>("Relationen & Frachten");
+        //bestellung.setGraphic(new Rectangle(10.0,10.0, Color.BLUE));
+        relationFreight.getChildren().add(new TreeItem<String>("Relation anlegen"));
+        relationFreight.getChildren().add(new TreeItem<String>("Relation redaktieren"));
+        relationFreight.getChildren().add(new TreeItem<String>("Relation löschen"));
+        relationFreight.getChildren().add(new TreeItem<String>("Fracht managen"));
+        relationFreight.setExpanded(true);
+
+
+
+
+        root.getChildren().add(orderCiment);
+        root.getChildren().add(inputOrder);
+        root.getChildren().add(customer);
+        root.getChildren().add(transporter);
+        root.getChildren().add(relationFreight);
+        controlList.setRoot(root);
+    }
+
+    private void setHandlerOnTreeView() {
+        controlList.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent mouseEvent)
+            {
+                if(mouseEvent.getClickCount() == 2)
+                {
+                    TreeItem<String> item = (TreeItem<String>) controlList.getSelectionModel().getSelectedItem();
+
+                    switch(item.getValue()) {
+                        case "neue Bestellung eingeben":
+                            // code block
+                            System.out.println("Selected Text : " + item.getValue());
+                            break;
+                        case "neue bestellung eingeben (Kurzform)":
+                            System.out.println("Selected Text : " + item.getValue());
+                            // code block
+                            break;
+                        default:
+                            // code block
+                    }
+
+
+
+
+                }
+            }
+        });
+    }
+
 
     @FXML
     private void printOutput(){
