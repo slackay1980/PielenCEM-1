@@ -11,16 +11,25 @@ public class HibernateUtil   {
 		
 		try {
         	System.out.println("Mache neue SessionFactory...");
-            Configuration config = new Configuration().addAnnotatedClass(Entyties.Customer.class);
-           /* config.addAnnotatedClass(Entyties.CustomerStation.class);
-            config.addAnnotatedClass(Entyties.OrderCiment.class);
-            config.addAnnotatedClass(Entyties.Producent.class);
-            config.addAnnotatedClass(Entyties.ProducentStation.class);
-            config.addAnnotatedClass(Entyties.Product.class);
-            config.addAnnotatedClass(Entyties.User.class);
+            Configuration config = new Configuration().addAnnotatedClass(entyties.Seller.class);
+			config.addAnnotatedClass(entyties.Customer.class);
+			config.addAnnotatedClass(entyties.Region.class);
+           config.addAnnotatedClass(entyties.CustomerStation.class);
+			config.addAnnotatedClass(entyties.Region.class);
 
-           */
+            config.addAnnotatedClass(entyties.Producent.class);
+            config.addAnnotatedClass(entyties.ProducentStation.class);
+            config.addAnnotatedClass(entyties.Product.class);
+			config.addAnnotatedClass(entyties.Relation.class);
+			config.addAnnotatedClass(entyties.Forwarder.class);
+
+			config.addAnnotatedClass(entyties.TransportOrder.class);
+			config.addAnnotatedClass(entyties.Freight.class);
+			config.addAnnotatedClass(entyties.User.class);
+			config.addAnnotatedClass(entyties.OrderCiment.class);
+
             return config.configure().buildSessionFactory();
+
         } catch (Throwable e) 
 			
         
@@ -33,7 +42,7 @@ public class HibernateUtil   {
 	}
 	
 	public static SessionFactory getSessionFactory() throws Exception {
-		System.out.println("Geting session backd");
+		System.out.println("Geting session back");
 		return sessionFactory;
 	}
 	

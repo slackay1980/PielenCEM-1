@@ -1,4 +1,4 @@
-package Entyties;
+package entyties;
 
 
 
@@ -47,10 +47,20 @@ public class Customer {
     
     @Column(name ="CUSTOMER_NOTE")
     private String customerNote;
-    
-    
+
+    /////// Connect to Seller Table ///////
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="SELLER_ID")
+	private Seller seller;
+
+
+
+	//// Connect to CustomerStation Table /////////////
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer")
     private List<CustomerStation> customerStations;
+
+
+
   
     public String getCustomerCity() {
         return customerCity;
@@ -156,6 +166,14 @@ public class Customer {
     public List<CustomerStation> getCustomerStations() {
         return customerStations;
     }
+
+	public Seller getSeller() {
+		return seller;
+	}
+
+	public void setSeller(Seller seller) {
+		this.seller = seller;
+	}
 
 	public Customer(){
 

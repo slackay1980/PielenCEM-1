@@ -4,6 +4,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.hibernate.Session;
 
 public class Main extends Application {
 
@@ -17,6 +18,8 @@ public class Main extends Application {
         login.initialize();
         login.showAndWait();
         primaryStage.show();
+
+        Session session = util.HibernateUtil.getSessionFactory().openSession();
 
     }
 
