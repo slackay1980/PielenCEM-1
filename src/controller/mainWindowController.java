@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -16,6 +17,8 @@ import javafx.stage.Stage;
 
 
 public class mainWindowController {
+
+    private Stage parentStage;
 
     @FXML
     // The reference of inputText will be injected by the FXML loader
@@ -75,7 +78,10 @@ public class mainWindowController {
     }
     }
 
-
+    @FXML
+    private void addCustomerShow() {
+        new AddCustomerController(parentStage,"/view/AddCustomerView.fxml");
+    }
 
 
 
@@ -89,6 +95,10 @@ public class mainWindowController {
 
 
 
+    }
+
+    public void setStage(Stage stage) {
+        this.parentStage = stage;
     }
 
     private void prepareTreeView() {

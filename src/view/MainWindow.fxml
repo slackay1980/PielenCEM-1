@@ -19,7 +19,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="679.0" prefWidth="1188.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.mainWindowController">
+<VBox fx:id="mainController" prefHeight="679.0" prefWidth="1188.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.mainWindowController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -41,7 +41,7 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Kunde">
           <items>
-            <MenuItem fx:id="mnuCustomerNeu" mnemonicParsing="false" text="Neuen Kunden anlegen" />
+            <MenuItem fx:id="mnuCustomerNeu" mnemonicParsing="false" onAction="#addCustomerShow" text="Neuen Kunden anlegen" />
             <MenuItem mnemonicParsing="false" text="List alle Kunden" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Cut" />
