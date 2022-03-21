@@ -1,11 +1,10 @@
 import controller.LoginController;
-import controller.mainWindowController;
+import controller.MainWindowController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import controller.LoginController;
 
 public class Main extends Application {
 
@@ -23,7 +22,7 @@ public class Main extends Application {
         primaryStage.setTitle("PielenCEM");
         primaryStage.setScene(new Scene(root, 1200, 775));
 
-        mainWindowController controller = (mainWindowController)loader.getController();
+        MainWindowController controller = (MainWindowController)loader.getController();
         controller.setStage(primaryStage);
 
         LoginController loginController = new LoginController(primaryStage);

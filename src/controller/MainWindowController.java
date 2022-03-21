@@ -3,20 +3,18 @@ package controller;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 
-public class mainWindowController {
+
+public class MainWindowController {
 
     private Stage parentStage;
 
@@ -36,7 +34,7 @@ public class mainWindowController {
 
 
     // Add a public no-args constructor
-    public mainWindowController()
+    public MainWindowController()
     {
     }
 
@@ -78,9 +76,35 @@ public class mainWindowController {
     }
     }
 
-    @FXML
+    @FXML // Menu -> Kunde -> Kunde neu anlegen
     private void addCustomerShow() {
-        new AddCustomerController(parentStage,"/view/AddCustomerView.fxml");
+
+//        new AddCustomerController(parentStage, "/view/AddCustomerView1.fxml");
+
+            Parent root;
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddCustomerView.fxml"));
+
+                root = loader.load();
+
+                Stage stage = new Stage();
+                stage.setTitle("Kunde neu anlegen");
+
+                stage.setScene(new Scene(root, 600, 450));
+
+                stage.initOwner(parentStage);
+                stage.initModality(Modality.APPLICATION_MODAL);
+                AddCustomerController addCustomerCtrl = (AddCustomerController) loader.getController();
+                addCustomerCtrl.setStage(stage);
+
+                stage.showAndWait();
+
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
     }
 
 

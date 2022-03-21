@@ -16,9 +16,6 @@ public class LoginService {
     public List<User> getAllUsers() {
 
        List<User> users = null;
-
-
-
         try {
             UserDAO userDAO = new UserDAO();
             users = userDAO.getAllUsers();
