@@ -24,7 +24,6 @@ public class AddCustomerController extends Controller {
 
     @FXML
     private TextField customerName;
-
     @FXML
     private TextField customerStreet;
     @FXML
@@ -80,7 +79,7 @@ public class AddCustomerController extends Controller {
 
     @FXML
     private void btnCancelClicked() {
-        customerCountry.setText(Integer.toString(choiceSeller.getSelectionModel().getSelectedIndex()));
+        getStage().close();
     }
 
     @FXML

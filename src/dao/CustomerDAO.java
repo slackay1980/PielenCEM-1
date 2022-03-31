@@ -27,7 +27,7 @@ public class CustomerDAO {
 		session.close();
 	}
 	
-	public List<Customer> getCustomerStationAccordToString(String searchString) throws HibernateException, Exception {
+	public List<Customer> getCustomerAccordToString(String searchString) throws HibernateException, Exception {
 		
 		Session session = util.HibernateUtil.getSessionFactory().openSession();
 		String querry = "FROM Customer as c WHERE c.customerName LIKE : searchString";

@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.hibernate.Session;
 
 public class Main extends Application {
 
@@ -13,6 +14,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
+        Session session = util.HibernateUtil.getSessionFactory().openSession();
         //MainTest mainTest = new MainTest();
         //HibernateUtil.getSessionFactory();
 
@@ -31,7 +33,7 @@ public class Main extends Application {
 
         primaryStage.show();
 
-       // Session session = util.HibernateUtil.getSessionFactory().openSession();
+
 
     }
 

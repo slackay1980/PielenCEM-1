@@ -90,7 +90,7 @@ public class MainWindowController {
                 Stage stage = new Stage();
                 stage.setTitle("Kunde neu anlegen");
 
-                stage.setScene(new Scene(root, 600, 450));
+                stage.setScene(new Scene(root, 600, 600));
 
                 stage.initOwner(parentStage);
                 stage.initModality(Modality.APPLICATION_MODAL);
@@ -107,6 +107,31 @@ public class MainWindowController {
 
     }
 
+    @FXML // Menu -> Kunde -> Kundenstationen ...
+    private void  addCustomerStationShow() {
+        Parent root;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddCustomerStation.fxml"));
+
+            root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Kundenstationen ...");
+
+            stage.setScene(new Scene(root, 600, 600));
+
+            stage.initOwner(parentStage);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            AddCustomerStationController addCustomerStationCtrl = (AddCustomerStationController) loader.getController();
+            addCustomerStationCtrl.setStage(stage);
+
+            stage.showAndWait();
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 

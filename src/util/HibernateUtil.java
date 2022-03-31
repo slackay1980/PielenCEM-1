@@ -14,7 +14,7 @@ public class HibernateUtil   {
 		try{
 
 		System.out.println(ANSI_GREEN_BACKGROUND + ANSI_RED +
-				"Die Customer Tabelle ist angelegt" + ANSI_RESET);
+				"Session wird  angelegt" + ANSI_RESET);
 		Configuration config = new Configuration().addAnnotatedClass(entyties.Seller.class);
 		config.addAnnotatedClass(entyties.Customer.class);
 		config.addAnnotatedClass(entyties.Region.class);

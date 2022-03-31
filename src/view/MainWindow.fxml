@@ -42,7 +42,8 @@
         <Menu mnemonicParsing="false" text="Kunde">
           <items>
             <MenuItem fx:id="mnuCustomerNeu" mnemonicParsing="false" onAction="#addCustomerShow" text="Neuen Kunden anlegen" />
-            <MenuItem mnemonicParsing="false" text="List alle Kunden" />
+            <MenuItem fx:id="mnuCustomerStationNeu" mnemonicParsing="false" onAction="#addCustomerStationShow" text="Kundenstationen ..." />
+                  <MenuItem mnemonicParsing="false" text="List alle Kunden" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Cut" />
             <MenuItem mnemonicParsing="false" text="Copy" />
