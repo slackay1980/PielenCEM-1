@@ -1,6 +1,9 @@
 package controller;
 
 import entyties.Customer;
+import entyties.CustomerStation;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -15,6 +18,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddCustomerStationController extends Controller {
+
+    private Customer customer;
+    private CustomerStation customerStation;
+    private List<CustomerStation> customerStations;
+    private List<Integer> listIdsCustomerStations;
+    private ObservableList<String> itemsComboBox= FXCollections.observableArrayList();
 
     public AddCustomerStationController() {
     }
@@ -79,6 +88,12 @@ public class AddCustomerStationController extends Controller {
     }
 
     @FXML
+    private void selectItemComboBox() {
+        System.out.println("ComboSelected");
+        fillFieldsBySelectingCustomerStation();
+    }
+
+    @FXML
     private void btnSaveClicked() {
 
     }
@@ -88,7 +103,65 @@ public class AddCustomerStationController extends Controller {
 
     }
 
-    private void disableControlls() {
+
+
+
+
+
+
+    @FXML
+    private void initialize()
+    {
+        // disable all controll elements bevor  one customer is selected
+        disableAllControllElements();
+        findCustomerStation.requestFocus();
+        setKeyHandlerOnFindCustomerStation();
+
+
+
+
+    }
+
+
+    @FXML
+    private void printOutput(){
+
+    }
+
+    private void setKeyHandlerOnFindCustomerStation() {
+
+        findCustomerStation.addEventFilter( KeyEvent.KEY_PRESSED, keyEvent -> {
+            if( keyEvent.getCode() == KeyCode.ENTER)
+            {
+                List<Customer> list = new CustomerService().getCustomersLikeString(findCustomerStation.getText());
+
+                PoolDownDialog dialog = new PoolDownDialog(getStage(),findCustomerStation,list);
+                int i = dialog.showDialog();
+                customer = list.get(i);
+                System.out.println(customer);
+                findCustomerStation.setText(customer.getCustomerName()+", "+customer.getCustomerCity());
+                fillComboBoxCustomerStations(customer.getId());
+
+            }
+        });
+    }
+
+    private void fillComboBoxCustomerStations(int i) {
+
+        List<CustomerStation> customerStations = new CustomerService().getStationsFromCustomer(i);
+        if (customerStation!=null) {
+
+        }
+        else {
+            this.customerStations = customerStations;
+            listStations.setDisable(false);
+            fillObservableList(customerStations);
+            initComboBoxItems();
+            }
+    }
+
+
+    private void disableAllControllElements() {
         customerStationName.setDisable(true);
         customerStationStreet.setDisable(true);
         customerStationCountry.setDisable(true);
@@ -100,6 +173,7 @@ public class AddCustomerStationController extends Controller {
         customerStationFax.setDisable(true);
         customerStationEmail.setDisable(true);
         customerStationNote.setDisable(true);
+        listStations.setDisable(true);
         btnSave.setDisable(true);
         btnCancel.setDisable(true);
 
@@ -108,55 +182,51 @@ public class AddCustomerStationController extends Controller {
 
     private void enableControlls() {
 
-            customerStationName.setDisable(false);
-            customerStationStreet.setDisable(false);
-            customerStationCountry.setDisable(false);
-            customerStationPostCode.setDisable(false);
-            customerStationCity.setDisable(false);
-            customerStationEmploee.setDisable(false);
-            customerStationTelOffice.setDisable(false);
-            customerStationTelMobile.setDisable(false);
-            customerStationFax.setDisable(false);
-            customerStationEmail.setDisable(false);
-            customerStationNote.setDisable(false);
-            btnSave.setDisable(false);
-            btnCancel.setDisable(false);
+        customerStationName.setDisable(false);
+        customerStationStreet.setDisable(false);
+        customerStationCountry.setDisable(false);
+        customerStationPostCode.setDisable(false);
+        customerStationCity.setDisable(false);
+        customerStationEmploee.setDisable(false);
+        customerStationTelOffice.setDisable(false);
+        customerStationTelMobile.setDisable(false);
+        customerStationFax.setDisable(false);
+        customerStationEmail.setDisable(false);
+        customerStationNote.setDisable(false);
+        btnSave.setDisable(false);
+        btnCancel.setDisable(false);
 
 
     }
 
-
-
-
-
-    @FXML
-    private void initialize()
-    {
-        disableControlls();
-        findCustomerStation.requestFocus();
-        findCustomerStation.addEventFilter( KeyEvent.KEY_PRESSED, keyEvent -> {
-            if( keyEvent.getCode() == KeyCode.ESCAPE)
-            {
-                // closeList();
-
-            }
-
-
-            if( keyEvent.getCode() == KeyCode.ENTER)
-            {
-                List<Customer> list = new CustomerService().getCustomersLikeString(findCustomerStation.getText());
-
-                PoolDownDialog dialog = new PoolDownDialog(getStage(),findCustomerStation,list);
-                int i = dialog.showDialog();
-                findCustomerStation.setText(Integer.toString(i));
-
-            }
-        });
+    private void initComboBoxItems() {
+        listStations.setItems(itemsComboBox);
     }
 
+    // filling observable List from customer List in order to show it in ListWiew
+    private void fillObservableList(List<CustomerStation> listCustomerStations ) {
+        for(int i=0;(i<=listCustomerStations.size()-1);i++) {
 
-    @FXML
-    private void printOutput(){
+            itemsComboBox.add(listCustomerStations.get(i).getStationName() + " ," + listCustomerStations.get(i).getStationCity());
+            listIdsCustomerStations = new ArrayList<>();
+            listIdsCustomerStations.add(i);
+        }
+    }
 
+    private void fillFieldsBySelectingCustomerStation() {
+        CustomerStation customerStation = new CustomerStation();
+        int i = listStations.getSelectionModel().getSelectedIndex();
+        customerStation =  customerStations.get(i);
+        customerStationName.setText(customerStation.getStationName());
+        customerStationStreet.setText(customerStation.getStationStreet());
+        //customerStationCountry.setText(customerStation.get);
+        customerStationPostCode.setText(customerStation.getStationLandPostCode());
+        customerStationCity.setText(customerStation.getStationCity());
+        customerStationEmploee.setText(customerStation.getStationEmploee());
+        customerStationTelOffice.setText(customerStation.getStationTelefone1());
+        customerStationTelMobile.setText(customerStation.getStationTelefone2());
+        //customerStationFax.setText(customerStation.get);
+        customerStationEmail.setText(customerStation.getStationEmail());
+        customerStationNote.setText(customerStation.getStationNote());
     }
 }
