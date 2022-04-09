@@ -12,17 +12,19 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PoolDownDialog extends Stage {
 
     private int selectedItem;
 
-    public class PoolDownList extends ListView {
+    public class PoolDownList extends ListView{
 
         private ListView listView = this;
         private ObservableList<String> items= FXCollections.observableArrayList();
         private Stage myStage;
+
 
         public PoolDownList(Stage myStage, TextField txtField, List<Customer> listCustomer) {
             super();
@@ -36,15 +38,19 @@ public class PoolDownDialog extends Stage {
             addListener();
             this.requestFocus();
 
+
         }
 
         private void initListView() {
             this.setItems(items);
         }
 
-        private void fillObservableList(List<Customer> list ) {
-            for(int i=0;(i<=list.size()-1);i++) {
-                items.add(list.get(i).getCustomerName()+" ,"+list.get(i).getCustomerCity());
+        // filling observable List from customer List in order to show it in ListWiew
+        private void fillObservableList(List<Customer> listCustomer ) {
+            for(int i=0;(i<=listCustomer.size()-1);i++) {
+
+                        items.add(listCustomer.get(i).getCustomerName() + " ," + listCustomer.get(i).getCustomerCity());
+
             }
         }
 
@@ -82,14 +88,19 @@ public class PoolDownDialog extends Stage {
 
     }
 
-    public PoolDownDialog(Stage parentStage, TextField textField, List<Customer> listCustomers) {
+    public PoolDownDialog(Stage parentStage, TextField textField, List<Customer> listCustomer) {
+
+        // decorate PullDown List
         initStyle(StageStyle.UNDECORATED);
         initOwner(parentStage);
-        //initModality(Modality.APPLICATION_MODAL);
+
+        // set position of pulldownDialog relative to TextField
         setX(parentStage.getX()+textField.getLayoutX());
         setY(parentStage.getY()+textField.getLayoutY()+55);
+
+        // initialise and show PollDownList
         VBox root = new VBox();
-        PoolDownList poolDownList = new PoolDownList(this,textField,listCustomers);
+        PoolDownList poolDownList = new PoolDownList(this,textField,listCustomer);
         root.getChildren().add(poolDownList);
         Scene scene = new Scene(root, textField.getPrefWidth(), 120);
         poolDownList.setVisible(true);
@@ -98,6 +109,7 @@ public class PoolDownDialog extends Stage {
 
     }
 
+    // showing PoolDownDialog and waiting on select of customer
     public int showDialog() {
         showAndWait();
         return selectedItem;

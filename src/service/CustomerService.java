@@ -1,7 +1,9 @@
 package service;
 
 import dao.CustomerDAO;
+import dao.CustomerStationDAO;
 import entyties.Customer;
+import entyties.CustomerStation;
 
 import java.util.List;
 
@@ -32,5 +34,18 @@ public class CustomerService {
 
         }
         return  customers;
+    }
+
+    public  List<CustomerStation> getStationsFromCustomer(int id) {
+
+        List<CustomerStation> customerStations= null;
+
+        try {
+            customerStations = new CustomerStationDAO().getAllCustomerStationsForCertainCustomer(id);
+        }
+        catch (Exception e) {
+
+        }
+        return  customerStations;
     }
 }
