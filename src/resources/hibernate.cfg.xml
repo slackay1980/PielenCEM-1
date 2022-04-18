@@ -19,7 +19,7 @@
             <!--jdbc:mysql://127.0.0.1:3306/pielencem?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC-->
             <!-- jdbc:mysql://127.0.0.1:3306/dispatcher?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC  -->
             <!--jdbc:mysql://db4free.net:3306/pielen_cem_exp -->
-            jdbc:mysql://85.214.165.187:3306/pielen-cem?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC
+            jdbc:mysql://85.214.165.187:3306/pielen-cem?serverTimezone=UTC <!--?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false;-->
 
 </property>
 

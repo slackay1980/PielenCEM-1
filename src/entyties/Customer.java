@@ -21,8 +21,11 @@ public class Customer {
     @Column(name ="CUSTOMER_STREET")
     private String customerStreet;
     
-    @Column(name ="CUSTOMER_LAND_POSTCODE")
-    private String customerLandPostCode;
+    @Column(name ="CUSTOMER_LAND")
+    private String customerLand;
+
+	@Column(name ="CUSTOMER_POSTCODE")
+	private String customerPostCode;
     
     @Column(name ="CUSTOMER_CITY")
     private String customerCity;
@@ -79,12 +82,20 @@ public class Customer {
 		this.customerStreet = customerStreet;
 	}
 
-	public String getCustomerLandPostCode() {
-		return customerLandPostCode;
+	public String getCustomerLand() {
+		return customerLand;
 	}
 
-	public void setCustomerLandPostCode(String customerLandPostCode) {
-		this.customerLandPostCode = customerLandPostCode;
+	public void setCustomerLand(String customerLand) {
+		this.customerLand = customerLand;
+	}
+
+	public String getCustomerPostCode() {
+		return customerPostCode;
+	}
+
+	public void setCustomerPostCode(String customerPostCode) {
+		this.customerPostCode = customerPostCode;
 	}
 
 	public String getCustomerEmploee() {
@@ -182,13 +193,14 @@ public class Customer {
    
    
 
-    public Customer(String customerName, String customerStreet, String customerLandPostCode,
+    public Customer(String customerName, String customerStreet, String customerLand,String customerPostCode,
 			String customerCity, String customerEmploee, String customerTelefone1, String customerTelefone2,
 			String customerTelefone3, String customerEmail, String customerLogicId, String customerNote) {
 
 		this.customerName = customerName;
 		this.customerStreet = customerStreet;
-		this.customerLandPostCode = customerLandPostCode;
+		this.customerLand = customerLand;
+		this.customerPostCode = customerPostCode;
 		this.customerCity = customerCity;
 		this.customerEmploee = customerEmploee;
 		this.customerTelefone1 = customerTelefone1;

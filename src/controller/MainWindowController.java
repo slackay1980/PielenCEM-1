@@ -118,7 +118,7 @@ public class MainWindowController {
             Stage stage = new Stage();
             stage.setTitle("Kundenstationen ...");
 
-            stage.setScene(new Scene(root, 600, 600));
+            stage.setScene(new Scene(root, 600, 680));
 
             stage.initOwner(parentStage);
             stage.initModality(Modality.APPLICATION_MODAL);

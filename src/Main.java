@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.hibernate.Session;
+import test.MainTest;
+import util.HibernateUtil;
 
 public class Main extends Application {
 
@@ -15,8 +17,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
         Session session = util.HibernateUtil.getSessionFactory().openSession();
-        //MainTest mainTest = new MainTest();
-        //HibernateUtil.getSessionFactory();
+        MainTest mainTest = new MainTest();
+
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("view/MainWindow.fxml"));
 

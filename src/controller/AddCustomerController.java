@@ -134,7 +134,8 @@ public class AddCustomerController extends Controller {
             customer = new Customer();
             customer.setCustomerName(customerName.getText());
             customer.setCustomerStreet(customerStreet.getText());
-            customer.setCustomerLandPostCode(customerCountry.getText()+"-"+customerPostCode.getText());
+            customer.setCustomerLand(customerCountry.getText());
+            customer.setCustomerPostCode(customerPostCode.getText());
             customer.setCustomerCity(customerCity.getText());
             customer.setCustomerEmploee(customerEmploee.getText());
             customer.setCustomerTelefone1(customerTelOffice.getText());

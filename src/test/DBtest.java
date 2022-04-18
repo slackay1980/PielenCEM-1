@@ -47,7 +47,8 @@ public class DBtest {
             Customer customer = new Customer();
             customer.setCustomerName("Customer--"+i);
             customer.setCustomerStreet("Street--"+i);
-            customer.setCustomerLandPostCode("F-5678"+i);
+            customer.setCustomerLand("F");
+            customer.setCustomerPostCode("6754"+i);
             customer.setCustomerCity("City--"+i);
             customer.setCustomerEmploee("Jan Jack Russo--"+i);
             customer.setCustomerTelefone1("06543 0976579-"+i);
@@ -55,6 +56,7 @@ public class DBtest {
             customer.setCustomerTelefone3("06543 097657914-"+i);
             customer.setCustomerEmail("email@email-"+i+".de");
             customer.setCustomerLogicId("76787567"+i);
+
             session.save(customer);
         }
 
@@ -68,7 +70,8 @@ public class DBtest {
             CustomerStation customerStation = new CustomerStation();
             customerStation.setStationName("Customer--"+i);
             customerStation.setStationStreet("Street--"+i);
-            customerStation.setStationLandPostCode("F-5678"+i);
+            customerStation.setStationLand("F"+i);
+            customerStation.setStationPostCode("6789"+i);
             customerStation.setStationCity("City--"+i);
             customerStation.setStationEmploee("Jan Jack Russo--"+i);
             customerStation.setStationTelefone1("06543 0976579-"+i);
@@ -79,6 +82,17 @@ public class DBtest {
         }
 
         System.out.println(ANSI_GREEN_BACKGROUND + ANSI_RED + "Die CustomerStation Tabelle ist angelegt" + ANSI_RESET);
+
+        for (i=0;i<=10;i++) {
+
+            Region region = new Region();
+            region.setRegionName("Region---"+i);
+            region.setRegionShortName("reg---"+i);
+            session.save(region);
+        }
+
+        System.out.println(ANSI_GREEN_BACKGROUND + ANSI_RED + "Die Region Tabelle ist angelegt" + ANSI_RESET);
+
 
         for (i=0;i<=10;i++) {
 

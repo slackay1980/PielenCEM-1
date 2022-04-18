@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 
 import entyties.Customer;
+import entyties.Region;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -23,6 +24,14 @@ public class CustomerStationDAO {
 		transaction.commit();
 		session.close();
 	}
+
+	public void updateStation(CustomerStation customerStation) throws HibernateException, Exception {
+		Session session = util.HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = session.beginTransaction();
+		session.update(customerStation);
+		transaction.commit();
+		session.close();
+	}
 	
 	public List<CustomerStation> getCustomerStationAccordToString(String searchString) throws HibernateException, Exception {
 		
@@ -31,7 +40,7 @@ public class CustomerStationDAO {
 		
 		@SuppressWarnings("deprecation")
 		List<CustomerStation> customerStationsLikeString = (List<CustomerStation>) session.createQuery(querry, CustomerStation.class).setString("searchString",searchString).list();
-
+		session.close();
 		return customerStationsLikeString;
 	}
 	
@@ -49,7 +58,7 @@ public class CustomerStationDAO {
 		query.setString("searchString",searchString);
 		@SuppressWarnings("unchecked")
 		List<CustomerStation> customerStationsLikeString = (List<CustomerStation>) query.list();
-		
+		session.close();
 	return customerStationsLikeString;
 	}
 
@@ -58,7 +67,7 @@ public class CustomerStationDAO {
 		Session session = util.HibernateUtil.getSessionFactory().openSession();
 
 		CustomerStation customerStation = (CustomerStation) session.get(CustomerStation.class, customerStationId);
-
+		session.close();
 		return customerStation;
 	}
 
@@ -73,9 +82,22 @@ public class CustomerStationDAO {
 		query.setInteger("customerId", customerId);
 		@SuppressWarnings("unchecked")
 		List<CustomerStation> customerStationsLikeString = (List<CustomerStation>) query.list();
-
+		session.close();
 		return customerStationsLikeString;
 	}
+
+	public List<Region> getAllRegions() throws HibernateException, Exception{
+
+		Session session = util.HibernateUtil.getSessionFactory().openSession();
+
+		String querry = "FROM Region";
+		Query query = session.createQuery(querry, Region.class);
+		List<Region> regions = (List<Region>) query.list();
+
+		return regions;
+	}
+
+
 	
 
 }

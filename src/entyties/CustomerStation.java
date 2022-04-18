@@ -20,10 +20,14 @@ public class CustomerStation {
     @Column(name ="STATION_STREET")
     private String stationStreet;
     
-    @Column(name ="STATION_LAND_POSTCODE")
-    private String stationLandPostCode;
-    
-    @Column(name ="STATION_CITY")
+    @Column(name ="STATION_LAND")
+    private String stationLand;
+
+	@Column(name ="STATION_POSTCODE")
+	private String stationPostCode;
+
+
+	@Column(name ="STATION_CITY")
     private String stationCity;
     
     @Column(name ="station_EMPLOEE")
@@ -80,12 +84,20 @@ public class CustomerStation {
 		this.stationStreet = stationStreet;
 	}
 
-	public String getStationLandPostCode() {
-		return stationLandPostCode;
+	public String getStationLand() {
+		return stationLand;
 	}
 
-	public void setStationLandPostCode(String stationLandPostCode) {
-		this.stationLandPostCode = stationLandPostCode;
+	public void setStationLand(String stationLand) {
+		this.stationLand = stationLand;
+	}
+
+	public String getStationPostCode() {
+		return stationPostCode;
+	}
+
+	public void setStationPostCode(String stationPostCode) {
+		this.stationPostCode = stationPostCode;
 	}
 
 	public Region getRegion() {
@@ -161,13 +173,14 @@ public class CustomerStation {
 	}
 
 
-	public CustomerStation(String stationName, String stationStreet, String stationLandPostCode, String stationCity,
+	public CustomerStation(String stationName, String stationStreet, String stationLand,String stationPostCode, String stationCity,
 			String stationEmploee, String stationTelefone1, String stationTelefone2, String stationEmail,
 			String stationNote) {
 		super();
 		this.stationName = stationName;
 		this.stationStreet = stationStreet;
-		this.stationLandPostCode = stationLandPostCode;
+		this.stationLand = stationLand;
+		this.stationPostCode = stationPostCode;
 		this.stationCity = stationCity;
 		this.stationEmploee = stationEmploee;
 		this.stationTelefone1 = stationTelefone1;
@@ -183,7 +196,7 @@ public class CustomerStation {
 	@Override
 	public String toString() {
 		return "CustomerStation [stationName=" + stationName + ", stationStreet=" + stationStreet
-				+ ", stationLandPostCode=" + stationLandPostCode + ", stationCity=" + stationCity + ", stationEmploee="
+				+ ", stationLand=" + stationLand +", stationPostCode=" + stationPostCode+ ", stationCity=" + stationCity + ", stationEmploee="
 				+ stationEmploee + ", stationTelefone1=" + stationTelefone1 + ", stationTelefone2=" + stationTelefone2
 				+ ", stationEmail=" + stationEmail + ", stationNote=" + stationNote + "]";
 	}

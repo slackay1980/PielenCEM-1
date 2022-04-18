@@ -4,6 +4,7 @@ import dao.CustomerDAO;
 import dao.CustomerStationDAO;
 import entyties.Customer;
 import entyties.CustomerStation;
+import entyties.Region;
 
 import java.util.List;
 
@@ -22,6 +23,28 @@ public class CustomerService {
             return false;
         }
     }
+
+    public Boolean saveCustomerStation(CustomerStation customerStation)  {
+        try {
+            new CustomerStationDAO().saveNewStation(customerStation);
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
+
+    public Boolean updateCustomerStation(CustomerStation customerStation)  {
+        try {
+            new CustomerStationDAO().updateStation(customerStation);
+            return true;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
     public List<Customer> getCustomersLikeString(String customerString)  {
 
@@ -47,5 +70,29 @@ public class CustomerService {
 
         }
         return  customerStations;
+    }
+
+    public List<Region> getAllRegions() {
+
+        List<Region> regions = null;
+        try {
+            regions = new CustomerStationDAO().getAllRegions();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return  regions;
+    }
+
+    public CustomerStation getCustomerStationFromList(int id, List<CustomerStation> customerStations) {
+
+        for (CustomerStation station : customerStations
+        ) {
+            if (station.getId() == id) return station;
+
+        }
+
+
+        return null;
     }
 }
