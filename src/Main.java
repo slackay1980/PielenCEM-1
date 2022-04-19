@@ -17,7 +17,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
         Session session = util.HibernateUtil.getSessionFactory().openSession();
-        MainTest mainTest = new MainTest();
+        // MainTest mainTest = new MainTest();
 
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("view/MainWindow.fxml"));

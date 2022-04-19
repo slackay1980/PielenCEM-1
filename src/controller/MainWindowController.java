@@ -31,6 +31,8 @@ public class MainWindowController {
     @FXML
     private  AnchorPane  detailsPane;
 
+    @FXML
+    private MenuItem mnuAllCustomersView;
 
 
     // Add a public no-args constructor
@@ -133,7 +135,31 @@ public class MainWindowController {
         }
     }
 
+    @FXML // Menu -> Kunde -> List alle Kunden ...
+    private void  allCustomersViewShow() {
+        Parent root;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AllCustomersView.fxml"));
 
+            root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Alle Kunden ...");
+
+            stage.setScene(new Scene(root, 600, 680));
+
+            stage.initOwner(parentStage);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            AllCustomersViewController allCustomersViewController = (AllCustomersViewController) loader.getController();
+            allCustomersViewController.setStage(stage);
+
+            stage.showAndWait();
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private void initialize()
