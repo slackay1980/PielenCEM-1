@@ -95,4 +95,15 @@ public class CustomerService {
 
         return null;
     }
+
+    public List<Customer> getAllCustomersToList() {
+
+        List<Customer> customers = null;
+        try {
+            customers = new CustomerDAO().getAllCustomers();
+        } catch (Exception e) {
+
+        }
+        return customers;
+    }
 }

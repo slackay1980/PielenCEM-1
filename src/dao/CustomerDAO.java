@@ -38,4 +38,17 @@ public class CustomerDAO {
 		return customersLikeString;
 	}
 
+	public List<Customer> getAllCustomers() throws HibernateException, Exception {
+
+		Session session = util.HibernateUtil.getSessionFactory().openSession();
+		String querry = "FROM Customer";
+
+		@SuppressWarnings("deprecation")
+		List<Customer> customers = (List<Customer>) session.createQuery(querry, Customer.class).list();
+
+		return customers;
+	}
+
+
+
 }

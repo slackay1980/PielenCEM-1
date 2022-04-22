@@ -28,11 +28,11 @@ public class Main extends Application {
 
         MainWindowController controller = (MainWindowController)loader.getController();
         controller.setStage(primaryStage);
-
+           /*
         LoginController loginController = new LoginController(primaryStage);
         loginController.initialize();
         loginController.showAndWait();
-
+            */
         primaryStage.show();
 
 

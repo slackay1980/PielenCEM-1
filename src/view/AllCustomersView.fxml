@@ -5,21 +5,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AllCustomersViewController">
    <children>
       <AnchorPane prefHeight="401.0" prefWidth="600.0">
          <children>
-            <TableView layoutX="4.0" layoutY="7.0" prefHeight="349.0" prefWidth="592.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="7.0">
+            <TableView fx:id="tableAllCustomers" layoutX="4.0" layoutY="7.0" prefHeight="349.0" prefWidth="592.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="7.0">
               <columns>
-                <TableColumn minWidth="34.0" prefWidth="48.0" text="Nr" />
-                <TableColumn prefWidth="152.0" text="Kunde" />
-                  <TableColumn prefWidth="150.0" text="Strasse, Hs Nr" />
-                  <TableColumn prefWidth="77.0" text="Land &amp; PLZ" />
-                  <TableColumn prefWidth="65.0" text="Betreuer" />
-                  <TableColumn prefWidth="160.0" text=" Ansprechpartner im Unternehmen Ansprechpartner im Unternehmen" />
-                  <TableColumn prefWidth="112.0" text="Telefon" />
-                  <TableColumn prefWidth="126.0" text="Email" />
+                <TableColumn fx:id="tableColNumber" minWidth="34.0" prefWidth="48.0" text="Nr" />
+                <TableColumn fx:id="tableColCustomerName" prefWidth="152.0" text="Kunde" />
+                  <TableColumn fx:id="tableColCustomerStreet" prefWidth="150.0" text="Strasse, Hs Nr" />
+                  <TableColumn fx:id="tableColCustomerCountryPostCode" prefWidth="77.0" text="Land &amp; PLZ" />
+                  <TableColumn fx:id="tableColSeller" prefWidth="65.0" text="Betreuer" />
+                  <TableColumn fx:id="tableColCustomerEmploye" prefWidth="160.0" text=" Ansprechpartner im Unternehmen Ansprechpartner im Unternehmen" />
+                  <TableColumn fx:id="tableColCustomerTel1" prefWidth="112.0" text="Telefon" />
+                  <TableColumn fx:id="tableColCustomerEmail" prefWidth="126.0" text="Email" />
               </columns>
             </TableView>
          </children>
