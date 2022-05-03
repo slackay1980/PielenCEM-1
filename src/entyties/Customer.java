@@ -15,6 +15,9 @@ public class Customer {
     @Column(name="ID")
     private int id;
 
+    @Transient
+	private Integer posNumber;
+
     @Column(name ="CUSTOMER_NAME")
     private String customerName;
     
@@ -26,8 +29,11 @@ public class Customer {
 
 	@Column(name ="CUSTOMER_POSTCODE")
 	private String customerPostCode;
-    
-    @Column(name ="CUSTOMER_CITY")
+
+	@Transient
+	private String customerCountryAndPOstCode;
+
+	@Column(name ="CUSTOMER_CITY")
     private String customerCity;
     
     @Column(name ="CUSTOMER_EMPLOEE")
@@ -56,6 +62,9 @@ public class Customer {
 	@JoinColumn(name="SELLER_ID")
 	private Seller seller;
 
+	@Transient
+	private String sellerName;
+
 
 
 	//// Connect to CustomerStation Table /////////////
@@ -64,14 +73,32 @@ public class Customer {
 
 
 
-  
-    public String getCustomerCity() {
-        return customerCity;
-    }
 
-    public void setCustomerCity(String customerCity) {
-        this.customerCity = customerCity;
-    }
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public Integer getPosNumber() {
+		return posNumber;
+	}
+
+	public void setPosNumber(Integer posNumber) {
+		this.posNumber = posNumber;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+
+	public String getCustomerName() {
+		return customerName;
+	}
 
 
     public String getCustomerStreet() {
@@ -96,6 +123,22 @@ public class Customer {
 
 	public void setCustomerPostCode(String customerPostCode) {
 		this.customerPostCode = customerPostCode;
+	}
+
+	public String getCustomerCountryAndPOstCode() {
+		return getCustomerLand()+"-"+getCustomerPostCode();
+	}
+
+	public void setCustomerCountryAndPOstCode(String customerCountryAndPOstCode) {
+		this.customerCountryAndPOstCode = customerCountryAndPOstCode;
+	}
+
+	public String getCustomerCity() {
+		return customerCity;
+	}
+
+	public void setCustomerCity(String customerCity) {
+		this.customerCity = customerCity;
 	}
 
 	public String getCustomerEmploee() {
@@ -154,25 +197,11 @@ public class Customer {
 		this.customerLogicId = customerLogicId;
 	}
 
-	public void setId(int id) {
-        this.id = id;
-    }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
 
-    public void setCustomerStations(List<CustomerStation> customerStations) {
-        this.customerStations = customerStations;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
+	public void setCustomerStations(List<CustomerStation> customerStations) {
+		this.customerStations = customerStations;
+	}
 
     public List<CustomerStation> getCustomerStations() {
         return customerStations;
@@ -184,6 +213,15 @@ public class Customer {
 
 	public void setSeller(Seller seller) {
 		this.seller = seller;
+	}
+
+	public String getSellerName() {
+		if (getSeller()!=null) {
+			return getSeller().getSellerShortName();
+		}
+		else {
+			return "kein Betreuer";
+		}
 	}
 
 	public Customer(){

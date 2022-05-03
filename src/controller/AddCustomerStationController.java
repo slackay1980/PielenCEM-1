@@ -195,6 +195,8 @@ public class AddCustomerStationController extends Controller {
                 if (list.size()>0) {
                     PoolDownDialog dialog = new PoolDownDialog(getStage(), findCustomerStation, list);
                     int i = dialog.showDialog();
+                    if (i==-1) {findCustomerStation.setText(""); }
+                    else {
                     customer = list.get(i);
                     System.out.println(customer);                                                                            // !!!!!!!!!!!!!!!
                     findCustomerStation.setText(customer.getCustomerName() + ", " + customer.getCustomerCity());
@@ -202,7 +204,7 @@ public class AddCustomerStationController extends Controller {
                     findCustomerStation.setDisable(true);
                     fillComboBoxCustomerStations(customer.getId());
                     // **********************
-                    enableControllsForSaveNew();
+                    enableControllsForSaveNew(); }
                 }
             }
         });

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="535.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddProducerController">
+   <children>
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="527.0" prefWidth="600.0">
+         <children>
+            <Pane layoutY="-2.0" prefHeight="104.0" prefWidth="345.0" style="-fx-background-color: red;" />
+            <Pane layoutX="345.0" layoutY="-2.0" prefHeight="104.0" prefWidth="255.0" style="-fx-background-color: grey;">
+               <children>
+                  <Label layoutX="43.0" layoutY="28.0" text="PIELEN">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="159.0" layoutY="29.0" text="CEM">
+                     <font>
+                        <Font name="System Bold Italic" size="34.0" />
+                     </font>
+                  </Label>
+                  <Line endX="43.0" layoutX="116.0" layoutY="71.0" startX="-76.0" startY="1.0" strokeWidth="3.0" />
+               </children>
+            </Pane>
+            <Label layoutX="20.0" layoutY="141.0" prefHeight="44.0" prefWidth="97.0" text="Hersteller Firmenname *" wrapText="true" />
+            <TextField fx:id="producerName" layoutX="124.0" layoutY="149.0" onAction="#customerNameClicked" prefHeight="30.0" prefWidth="160.0" />
+            <Label layoutX="20.0" layoutY="197.0" prefHeight="42.0" prefWidth="97.0" text="Straße *" />
+            <TextField fx:id="producerStreet" layoutX="124.0" layoutY="200.0" />
+            <Label layoutX="21.0" layoutY="236.0" prefHeight="53.0" prefWidth="103.0" text="Landeskürzel       und PLZ *" textAlignment="JUSTIFY" textOverrun="CLIP" wrapText="true" />
+            <TextField fx:id="producerCountry" layoutX="124.0" layoutY="248.0" prefHeight="27.0" prefWidth="43.0" />
+            <Label layoutX="21.0" layoutY="297.0" prefHeight="30.0" prefWidth="103.0" text="Stadt *" />
+            <TextField fx:id="producerPostCode" layoutX="194.0" layoutY="249.0" prefHeight="27.0" prefWidth="90.0" />
+            <Label layoutX="21.0" layoutY="351.0" prefHeight="30.0" prefWidth="103.0" text="Ansprechpartner" />
+            <TextField fx:id="producerCity" layoutX="124.0" layoutY="299.0" />
+            <Button fx:id="btnSave" layoutX="243.0" layoutY="420.0" mnemonicParsing="false" onAction="#btnSaveClicked" prefHeight="42.0" prefWidth="147.0" text="Speichern" />
+            <Button fx:id="btnCancel" layoutX="422.0" layoutY="420.0" mnemonicParsing="false" onAction="#btnCancelClicked" prefHeight="42.0" prefWidth="147.0" text="Abbrechen" />
+            <Label layoutX="325.0" layoutY="149.0" prefHeight="30.0" prefWidth="97.0" text="Tel. Büro" />
+            <TextField fx:id="producerEmploee" layoutX="124.0" layoutY="353.0" />
+            <Label layoutX="325.0" layoutY="197.0" prefHeight="30.0" prefWidth="97.0" text="Tel. Mobik" />
+            <TextField fx:id="producerTelOffice" layoutX="406.0" layoutY="152.0" />
+            <Label layoutX="325.0" layoutY="246.0" prefHeight="30.0" prefWidth="97.0" text="Fax" />
+            <TextField fx:id="producerTelMobile" layoutX="406.0" layoutY="199.0" />
+            <Label layoutX="325.0" layoutY="296.0" prefHeight="30.0" prefWidth="97.0" text="Email" />
+            <TextField fx:id="producerFax" layoutX="406.0" layoutY="248.0" />
+            <Label layoutX="325.0" layoutY="350.0" prefHeight="30.0" prefWidth="70.0" text="Logic ID " />
+            <TextField fx:id="producerEmail" layoutX="406.0" layoutY="299.0" />
+            <TextField fx:id="producerLogicID" layoutX="406.0" layoutY="353.0" prefHeight="27.0" prefWidth="160.0" promptText="Liferantennumer vom LOGIC" />
+            <VBox layoutX="7.0" layoutY="39.0" prefHeight="200.0" prefWidth="100.0" />
+         </children>
+      </Pane>
+   </children>
+</VBox>

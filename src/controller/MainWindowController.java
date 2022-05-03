@@ -34,6 +34,9 @@ public class MainWindowController {
     @FXML
     private MenuItem mnuAllCustomersView;
 
+    @FXML
+    private MenuItem addProducentMenuItem;
+
 
     // Add a public no-args constructor
     public MainWindowController()
@@ -146,7 +149,7 @@ public class MainWindowController {
             Stage stage = new Stage();
             stage.setTitle("Alle Kunden ...");
 
-            stage.setScene(new Scene(root, 600, 680));
+            stage.setScene(new Scene(root, 900, 500));
 
             stage.initOwner(parentStage);
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -160,6 +163,32 @@ public class MainWindowController {
             e.printStackTrace();
         }
     }
+
+    @FXML // Menu ->Hersteller -> Neuen hersteller anlegen
+    private void addProducentViewShow() {
+        Parent root;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddProducer.fxml"));
+
+            root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Neuen Hersteller anlegen ...");
+
+            stage.setScene(new Scene(root, 600, 600));
+
+            stage.initOwner(parentStage);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            AddProducerController addProducerController = (AddProducerController) loader.getController();
+            addProducerController.setStage(stage);
+
+            stage.showAndWait();
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    };
 
     @FXML
     private void initialize()
@@ -181,12 +210,13 @@ public class MainWindowController {
         TreeItem<String> root = new TreeItem<String>("PIELEN CEM");
         root.setExpanded(true);
 
-        TreeItem<String> orderCiment = new TreeItem<String>("Tourenerfassung");
+        TreeItem<String> orderCiment = new TreeItem<String>("Alle Aufträge ");
         //order.setGraphic(new Rectangle(10.0,10.0, Color.BLUE));
-        orderCiment.getChildren().add(new TreeItem<String>("alle Auftträge"));
-        orderCiment.getChildren().add(new TreeItem<String>("alle auf morgen"));
-        orderCiment.getChildren().add(new TreeItem<String>("alle verplant"));
-        orderCiment.getChildren().add(new TreeItem<String>("alle offen"));
+        orderCiment.getChildren().add(new TreeItem<String>("diese Woche"));
+        orderCiment.getChildren().add(new TreeItem<String>("gestern , heute und morgen"));
+        orderCiment.getChildren().add(new TreeItem<String>("heute und morgen"));
+        orderCiment.getChildren().add(new TreeItem<String>("an dem Tag..."));
+        orderCiment.getChildren().add(new TreeItem<String>("in dem Zeitraum..."));
         orderCiment.setExpanded(true);
 
         TreeItem<String> inputOrder = new TreeItem<String>("Bestellung");

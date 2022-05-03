@@ -64,6 +64,7 @@ public class PoolDownDialog extends Stage {
                 if( keyEvent.getCode() == KeyCode.ESCAPE)
                 {
                     // closeList();
+                    selectedItem = -1;
                     myStage.close();
                 }
 
@@ -109,7 +110,7 @@ public class PoolDownDialog extends Stage {
 
     }
 
-    // showing PoolDownDialog and waiting on select of customer
+    // showing PoolDownDialog and give back a selcted Item Number,
     public int showDialog() {
         showAndWait();
         return selectedItem;
