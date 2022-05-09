@@ -1,7 +1,5 @@
 package entyties;
 
-import java.util.List;
-
 import javax.persistence.*;
 
 
@@ -26,7 +24,7 @@ public class Product {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="producent_station_id")
-	private ProducentStation producentStation;
+	private ProducerStation producerStation;
 
 
 
@@ -54,8 +52,8 @@ public class Product {
 		this.field2 = field2;
 	}
 
-	public Product(ProducentStation producentStation, String productName, String productNameMore, String field1, String field2) {
-		this.producentStation = producentStation;
+	public Product(ProducerStation producerStation, String productName, String productNameMore, String field1, String field2) {
+		this.producerStation = producerStation;
 		this.productName = productName;
 		this.productNameMore = productNameMore;
 		this.field1 = field1;
@@ -90,12 +88,12 @@ public class Product {
 		this.productName = productName;
 	}
 
-	public ProducentStation getProducentStation() {
-		return producentStation;
+	public ProducerStation getProducerStation() {
+		return producerStation;
 	}
 
-	public void setProducentStation(ProducentStation producentStation) {
-		this.producentStation = producentStation;
+	public void setProducerStation(ProducerStation producerStation) {
+		this.producerStation = producerStation;
 	}
 	
 	

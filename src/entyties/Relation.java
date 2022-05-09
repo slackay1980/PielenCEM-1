@@ -17,7 +17,7 @@ public class Relation {
 
     @ManyToOne
     @JoinColumn(name="PRODUCENTSTATION_ID")
-    private ProducentStation producentStation;
+    private ProducerStation producerStation;
 
     @OneToMany(mappedBy = "relation")
     private List<Freight> freights;
@@ -48,9 +48,9 @@ public class Relation {
 
 
 
-    public Relation(CustomerStation customerStation, ProducentStation producentStation, String relationName, int distance) {
+    public Relation(CustomerStation customerStation, ProducerStation producerStation, String relationName, int distance) {
         this.customerStation = customerStation;
-        this.producentStation = producentStation;
+        this.producerStation = producerStation;
         this.relationName = relationName;
         this.distance = distance;
     }
@@ -63,12 +63,12 @@ public class Relation {
         this.id = id;
     }
 
-    public ProducentStation getProducentStation() {
-        return producentStation;
+    public ProducerStation getProducerStation() {
+        return producerStation;
     }
 
-    public void setProducentStation(ProducentStation producentStation) {
-        this.producentStation = producentStation;
+    public void setProducerStation(ProducerStation producerStation) {
+        this.producerStation = producerStation;
     }
 
     public String getRelationName() {

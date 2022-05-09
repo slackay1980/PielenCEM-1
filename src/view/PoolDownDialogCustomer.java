@@ -15,7 +15,7 @@ import javafx.stage.StageStyle;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PoolDownDialog extends Stage {
+public class PoolDownDialogCustomer extends Stage {
 
     private int selectedItem;
 
@@ -89,7 +89,7 @@ public class PoolDownDialog extends Stage {
 
     }
 
-    public PoolDownDialog(Stage parentStage, TextField textField, List<Customer> listCustomer) {
+    public PoolDownDialogCustomer(Stage parentStage, TextField textField, List<Customer> listCustomer) {
 
         // decorate PullDown List
         initStyle(StageStyle.UNDECORATED);
@@ -110,7 +110,7 @@ public class PoolDownDialog extends Stage {
 
     }
 
-    // showing PoolDownDialog and give back a selcted Item Number,
+    // showing PoolDownDialogCustomer and give back a selcted Item Number,
     public int showDialog() {
         showAndWait();
         return selectedItem;

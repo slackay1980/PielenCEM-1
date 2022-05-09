@@ -37,7 +37,7 @@ public class TransportOrder {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "PRODUCENT_STATION_ID", referencedColumnName = "id")
-    private ProducentStation producentStation;
+    private ProducerStation producentStation;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "id")
@@ -52,7 +52,7 @@ public class TransportOrder {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "FREIGHT_ID", referencedColumnName = "id")
-    private ProducentStation FREIGHT;
+    private ProducerStation FREIGHT;
 
     */
 

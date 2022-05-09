@@ -7,23 +7,27 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "PRODUCENT_STATION")
-public class ProducentStation {
+public class ProducerStation {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID")
     private int id;
-	
+
 	 @Column(name="STATION_NAME")
 	 private String stationName;
 	    
 	    @Column(name ="STATION_STREET")
 	    private String stationStreet;
 	    
-	    @Column(name ="STATION_LAND_POSTCODE")
-	    private String stationLandPostCode;
-	    
-	    @Column(name ="STATION_CITY")
+	    @Column(name ="STATION_LAND")
+	    private String stationLand;
+
+		@Column(name ="STATION_POSTCODE")
+		private String stationPostCode;
+
+
+		@Column(name ="STATION_CITY")
 	    private String stationCity;
 	    
 	    @Column(name ="station_EMPLOEE")
@@ -34,7 +38,9 @@ public class ProducentStation {
 	    
 	    @Column(name ="STATION_TELEFONE_2")
 	    private String stationTelefone2;
-	    
+
+	    @Column(name ="STATION_TELEFONE_3")
+		private String stationTelefone3;
 	    
 	    @Column(name ="STATION_EMAIL")
 	    private String stationEmail;
@@ -46,41 +52,46 @@ public class ProducentStation {
 
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="producent_id")
-    private Producent producent;
+    @JoinColumn(name="producer_id")
+    private Producer producer;
     
 
     
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "producentStation")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "producerStation")
     private List<Product> product;
 
 
-	@OneToMany(mappedBy = "producentStation")
+	@OneToMany(mappedBy = "producerStation")
 	private List<Relation> relations;
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="REGION_ID")
+	private Region region;
 
 
-	public ProducentStation() {
+
+	public ProducerStation() {
 		
 	}
 
 
-	public ProducentStation(int id, String stationName, String stationStreet, String stationLandPostCode,
-			String stationCity, String stationEmploee, String stationTelefone1, String stationTelefone2,
-			String stationEmail, String stationNote, Producent producent,
-			List<Product> product) {
+	public ProducerStation(int id, String stationName, String stationStreet, String stationLand, String stationPostCode,
+						   String stationCity, String stationEmploee, String stationTelefone1, String stationTelefone2,
+						   String stationEmail, String stationNote, Producer producer,
+						   List<Product> product) {
 		super();
 		this.id = id;
 		this.stationName = stationName;
 		this.stationStreet = stationStreet;
-		this.stationLandPostCode = stationLandPostCode;
+		this.stationLand = stationLand;
+		this.stationPostCode = stationPostCode;
 		this.stationCity = stationCity;
 		this.stationEmploee = stationEmploee;
 		this.stationTelefone1 = stationTelefone1;
 		this.stationTelefone2 = stationTelefone2;
 		this.stationEmail = stationEmail;
 		this.stationNote = stationNote;
-		this.producent = producent;
+		this.producer = producer;
 		this.product = product;
 	}
 
@@ -109,6 +120,40 @@ public class ProducentStation {
 		return stationStreet;
 	}
 
+	public String getStationLand() {
+		if(stationLand==null) {
+			return "";
+		}
+		else {
+			return stationLand;
+		}
+	}
+
+	public void setStationLand(String stationLand) {
+		this.stationLand = stationLand;
+	}
+
+	public String getStationPostCode() {
+		if(stationPostCode==null) {
+			return "";
+		}
+		else {
+			return stationPostCode;
+		}
+	}
+
+	public void setStationPostCode(String stationPostCode) {
+		this.stationPostCode = stationPostCode;
+	}
+
+	public Region getRegion() {
+		return region;
+	}
+
+	public void setRegion(Region region) {
+		this.region = region;
+	}
+
 	public List<Relation> getRelations() {
 		return relations;
 	}
@@ -122,15 +167,6 @@ public class ProducentStation {
 		this.stationStreet = stationStreet;
 	}
 
-
-	public String getStationLandPostCode() {
-		return stationLandPostCode;
-	}
-
-
-	public void setStationLandPostCode(String stationLandPostCode) {
-		this.stationLandPostCode = stationLandPostCode;
-	}
 
 
 	public String getStationCity() {
@@ -154,7 +190,12 @@ public class ProducentStation {
 
 
 	public String getStationTelefone1() {
-		return stationTelefone1;
+		if(stationTelefone1==null) {
+			return "";
+		}
+		else {
+			return stationTelefone1;
+		}
 	}
 
 
@@ -171,6 +212,10 @@ public class ProducentStation {
 	public void setStationTelefone2(String stationTelefone2) {
 		this.stationTelefone2 = stationTelefone2;
 	}
+
+	public String getStationTelefone3() { return stationTelefone3; }
+
+	public void setStationTelefone3(String stationTelefone3) { this.stationTelefone3 = stationTelefone3; }
 
 
 	public String getStationEmail() {
@@ -193,13 +238,13 @@ public class ProducentStation {
 	}
 
 
-	public Producent getProducent() {
-		return producent;
+	public Producer getProducer() {
+		return producer;
 	}
 
 
-	public void setProducent(Producent producent) {
-		this.producent = producent;
+	public void setProducer(Producer producer) {
+		this.producer = producer;
 	}
 
 
@@ -217,10 +262,10 @@ public class ProducentStation {
 
 	@Override
 	public String toString() {
-		return "ProducentStation [id=" + id + ", stationName=" + stationName + ", stationStreet=" + stationStreet
-				+ ", stationLandPostCode=" + stationLandPostCode + ", stationCity=" + stationCity + ", stationEmploee="
+		return "ProducerStation [id=" + id + ", stationName=" + stationName + ", stationStreet=" + stationStreet
+				+ ", stationLandPostCode=" + stationLand + ", stationCity=" + stationCity + ", stationEmploee="
 				+ stationEmploee + ", stationTelefone1=" + stationTelefone1 + ", stationTelefone2=" + stationTelefone2
-				+ ", stationEmail=" + stationEmail + ", stationNote=" + stationNote + ", producent=" + producent
+				+ ", stationEmail=" + stationEmail + ", stationNote=" + stationNote + ", producer=" + producer
 				+ ", product=" + product + "]";
 	}
 

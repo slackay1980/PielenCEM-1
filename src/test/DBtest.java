@@ -96,32 +96,32 @@ public class DBtest {
 
         for (i=0;i<=10;i++) {
 
-            Producent producent = new Producent();
-            producent.setProducentName("Customer--"+i);
-            producent.setProducentStreet("Street--"+i);
-            producent.setProducentLandPostCode("F-5678"+i);
-            producent.setProducentCity("City--"+i);
-            producent.setProducentEmploee("Jan Jack Russo--"+i);
-            producent.setProducentTelefone1("06543 0976579-"+i);
-            producent.setProducentTelefone2("06543 097657912-"+i);
-            producent.setProducentEmail("email@email-"+i+".de");
-            session.save(producent);
+            Producer producer = new Producer();
+            producer.setProducentName("Customer--"+i);
+            producer.setProducentStreet("Street--"+i);
+            // producer.setProducentLandPostCode("F-5678"+i);
+            producer.setProducentCity("City--"+i);
+            producer.setProducentEmploee("Jan Jack Russo--"+i);
+            producer.setProducentTelefone1("06543 0976579-"+i);
+            producer.setProducentTelefone2("06543 097657912-"+i);
+            producer.setProducentEmail("email@email-"+i+".de");
+            session.save(producer);
         }
 
-        System.out.println(ANSI_GREEN_BACKGROUND + ANSI_RED + "Die Producent Tabelle ist angelegt" + ANSI_RESET);
+        System.out.println(ANSI_GREEN_BACKGROUND + ANSI_RED + "Die Producer Tabelle ist angelegt" + ANSI_RESET);
 
         for (i=0;i<=10;i++) {
 
-            ProducentStation producentStation = new ProducentStation();
-            producentStation.setStationName("Customer--"+i);
-            producentStation.setStationStreet("Street--"+i);
-            producentStation.setStationLandPostCode("F-5678"+i);
-            producentStation.setStationCity("City--"+i);
-            producentStation.setStationEmploee("Jan Jack Russo--"+i);
-            producentStation.setStationTelefone1("06543 0976579-"+i);
-            producentStation.setStationTelefone2("06543 097657912-"+i);
-            producentStation.setStationEmail("email@email-"+i+".de");
-            session.save(producentStation);
+            ProducerStation producerStation = new ProducerStation();
+            producerStation.setStationName("Customer--"+i);
+            producerStation.setStationStreet("Street--"+i);
+            //producerStation.setStationLandPostCode("F-5678"+i);
+            producerStation.setStationCity("City--"+i);
+            producerStation.setStationEmploee("Jan Jack Russo--"+i);
+            producerStation.setStationTelefone1("06543 0976579-"+i);
+            producerStation.setStationTelefone2("06543 097657912-"+i);
+            producerStation.setStationEmail("email@email-"+i+".de");
+            session.save(producerStation);
         }
 
         System.out.println(ANSI_GREEN_BACKGROUND + ANSI_RED + "Die ProducentStstion Tabelle ist angelegt" + ANSI_RESET);

@@ -29,8 +29,11 @@ public class Forwarder {
     @Column(name ="FORWARDER_STREET")
     private String forwarderStreet;
     
-    @Column(name ="FORWARDER_LAND_POSTCODE")
-    private String forwarderLandPostCode;
+    @Column(name ="FORWARDER_LAND")
+    private String forwarderCountry;
+
+    @Column(name ="FORWARDER_POSTCODE")
+    private String forwarderPostCode;
     
     @Column(name ="FORWARDER_CITY")
     private String forwarderCity;
@@ -59,14 +62,15 @@ public class Forwarder {
     public Forwarder() {
     }
 
-    public Forwarder( List<Freight> freights, String forwarderName,
-                     String forwarderStreet, String forwarderLandPostCode, String forwarderCity,
+    public Forwarder(List<Freight> freights, String forwarderName, String forwarderStreet,
+                     String forwarderCountry, String forwarderPostCode, String forwarderCity,
                      String forwarderEmploee, String forwarderTelefone1, String forwarderTelefone2,
                      String forwarderTelefone3, String forwarderEmail, String forwarderLogicId, String forwarderNote) {
         this.freights = freights;
         this.forwarderName = forwarderName;
         this.forwarderStreet = forwarderStreet;
-        this.forwarderLandPostCode = forwarderLandPostCode;
+        this.forwarderCountry = forwarderCountry;
+        this.forwarderPostCode = forwarderPostCode;
         this.forwarderCity = forwarderCity;
         this.forwarderEmploee = forwarderEmploee;
         this.forwarderTelefone1 = forwarderTelefone1;
@@ -110,13 +114,22 @@ public class Forwarder {
         this.forwarderStreet = forwarderStreet;
     }
 
-    public String getForwarderLandPostCode() {
-        return forwarderLandPostCode;
+    public String getForwarderCountry() {
+        return forwarderCountry;
     }
 
-    public void setForwarderLandPostCode(String forwarderLandPostCode) {
-        this.forwarderLandPostCode = forwarderLandPostCode;
+    public void setForwarderCountry(String forwarderCountry) {
+        this.forwarderCountry = forwarderCountry;
     }
+
+    public String getForwarderPostCode() {
+        return forwarderPostCode;
+    }
+
+    public void setForwarderPostCode(String forwarderPostCode) {
+        this.forwarderPostCode = forwarderPostCode;
+    }
+
 
     public String getForwarderCity() {
         return forwarderCity;

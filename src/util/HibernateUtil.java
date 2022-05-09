@@ -1,5 +1,7 @@
 package util;
 
+import entyties.Producer;
+import entyties.ProducerStation;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -21,8 +23,8 @@ public class HibernateUtil   {
 		config.addAnnotatedClass(entyties.CustomerStation.class);
 		config.addAnnotatedClass(entyties.Region.class);
 
-		config.addAnnotatedClass(entyties.Producent.class);
-		config.addAnnotatedClass(entyties.ProducentStation.class);
+		config.addAnnotatedClass(Producer.class);
+		config.addAnnotatedClass(ProducerStation.class);
 		config.addAnnotatedClass(entyties.Product.class);
 		config.addAnnotatedClass(entyties.Relation.class);
 		config.addAnnotatedClass(entyties.Forwarder.class);

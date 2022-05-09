@@ -52,8 +52,8 @@
         <Menu mnemonicParsing="false" text="Hersteller">
           <items>
             <MenuItem mnemonicParsing="false" text="Alle Hersteller zeigen" />
-                  <MenuItem fx:id="addProducentMenuItem" mnemonicParsing="false" onAction="#addProducentViewShow" text="Neuen Hersteller anlegen" />
-                  <MenuItem mnemonicParsing="false" text="Neuen Werk anlegen" />
+                  <MenuItem fx:id="addProducentMenuItem" mnemonicParsing="false" onAction="#addProducerViewShow" text="Neuen Hersteller anlegen" />
+                  <MenuItem fx:id="addProducerStationaddProducerStation" mnemonicParsing="false" onAction="#addProducerStationViewShow" text="Neuen Werk anlegen" />
                   <MenuItem mnemonicParsing="false" text=".   .   ." />
                   <MenuItem mnemonicParsing="false" text=".   .   ." />
                   <MenuItem mnemonicParsing="false" text=".   .   ." />
@@ -61,9 +61,9 @@
         </Menu>
             <Menu mnemonicParsing="false" text="Logistik">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Neue Spedition anlegen" />
-                  <MenuItem mnemonicParsing="false" text="Neuen Benutzer" />
-                  <MenuItem mnemonicParsing="false" text="Neuen Benutzer" />
+                  <MenuItem fx:id="newForwarder" mnemonicParsing="false" onAction="#addNewForwarderViewShow" text="Neue Spedition anlegen" />
+                  <MenuItem mnemonicParsing="false" text="Neue Relation anlegen..." />
+                  <MenuItem mnemonicParsing="false" text="Frachten" />
                   <MenuItem mnemonicParsing="false" text="Neuen Benutzer" />
                </items>
             </Menu>

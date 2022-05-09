@@ -3,7 +3,7 @@ package controller;
 
 import javafx.stage.Stage;
 
-public class Controller  {
+public abstract class Controller  {
     private Stage stage;
 
 

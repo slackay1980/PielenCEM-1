@@ -165,7 +165,7 @@ public class MainWindowController {
     }
 
     @FXML // Menu ->Hersteller -> Neuen hersteller anlegen
-    private void addProducentViewShow() {
+    private void addProducerViewShow() {
         Parent root;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddProducer.fxml"));
@@ -189,6 +189,61 @@ public class MainWindowController {
             e.printStackTrace();
         }
     };
+
+    @FXML // Menu -> Logistik -> Neue Spedition anlegen
+    private void addProducerStationViewShow() {
+        Parent root;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddProducerStation.fxml"));
+
+            root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Neuen Werk anlegen ...");
+
+            stage.setScene(new Scene(root, 600, 680));
+
+            stage.initOwner(parentStage);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            AddProducerStationController addProducerStationController = (AddProducerStationController) loader.getController();
+            addProducerStationController.setStage(stage);
+
+            stage.showAndWait();
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    };
+
+
+
+    @FXML // Menu ->Hersteller -> Neuen Werk anlegen
+    private void addNewForwarderViewShow() {
+        Parent root;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddForwarder.fxml"));
+
+            root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Neuen Werk anlegen ...");
+
+            stage.setScene(new Scene(root, 600, 600));
+
+            stage.initOwner(parentStage);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            AddForwarderController addForwarderController = (AddForwarderController) loader.getController();
+            addForwarderController.setStage(stage);
+
+            stage.showAndWait();
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    };
+
 
     @FXML
     private void initialize()

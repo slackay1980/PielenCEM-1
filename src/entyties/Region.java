@@ -23,6 +23,9 @@ public class Region {
     @OneToMany(mappedBy = "region")
     private List<CustomerStation> customerStations;
 
+    @OneToMany(mappedBy = "region")
+    private List<ProducerStation> producerStations;
+
 
     public int getId() {
         return Id;

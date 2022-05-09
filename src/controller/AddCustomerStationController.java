@@ -2,6 +2,7 @@ package controller;
 
 import entyties.Customer;
 import entyties.CustomerStation;
+import entyties.ProducerStation;
 import entyties.Region;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,12 +14,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import service.CustomerService;
+import service.ProducerService;
 import view.AlertMessage;
-import view.PoolDownDialog;
+import view.PoolDownDialogCustomer;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.io.ObjectInput;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -163,8 +162,6 @@ public class AddCustomerStationController extends Controller {
     private void initialize()
     {
         // initialise necessery lists
-
-
         regions = new CustomerService().getAllRegions();
         fillObservableListRegions(regions);
         initComboBoxItemsRegions();
@@ -193,7 +190,7 @@ public class AddCustomerStationController extends Controller {
                 List<Customer> list = new CustomerService().getCustomersLikeString(findCustomerStation.getText());
 // TODO Prüfen if List is empty
                 if (list.size()>0) {
-                    PoolDownDialog dialog = new PoolDownDialog(getStage(), findCustomerStation, list);
+                    PoolDownDialogCustomer dialog = new PoolDownDialogCustomer(getStage(), findCustomerStation, list);
                     int i = dialog.showDialog();
                     if (i==-1) {findCustomerStation.setText(""); }
                     else {

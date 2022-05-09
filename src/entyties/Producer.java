@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "PRODUCENT")
-public class Producent {
+public class Producer {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,13 +15,17 @@ public class Producent {
     private int id;
     
     @Column(name ="PRODUCENT_NAME")
-    private String producentName;
+    private String producerName;
     
     @Column(name ="PRODUCENT_STREET")
     private String producentStreet;
-    
-    @Column(name ="CPRODUCENT_LAND_POSTCODE")
-    private String producentLandPostCode;
+
+
+	@Column(name ="PRODUCENT_LAND")
+	private String producentLand;
+
+	@Column(name ="PRODUCENT_POSTCODE")
+	private String producentPostCode;
     
     @Column(name ="PRODUCENT_CITY")
     private String producentCity;
@@ -48,11 +52,11 @@ public class Producent {
     private String producentNote;
 
 ///////////////////CONNECTION TO PRODUCENTSTATION///////////////////////////////////////
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "producent")
-	private List<ProducentStation> producentStations;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "producer")
+	private List<ProducerStation> producerStations;
 
 
-	public Producent() {
+	public Producer() {
 	
 	}
 
@@ -60,16 +64,17 @@ public class Producent {
 	
 
 
-	public Producent(int id, List<ProducentStation> producentStations, String producentName, String producentStreet,
-			String producentLandPostCode, String producentCity, String producentEmploee, String producentTelefone1,
-			String cproducentTelefone2, String producentTelefone3, String producentEmail, String producentLogicId,
-			String producentNote) {
+	public Producer(int id, List<ProducerStation> producerStations, String producentName, String producentStreet,
+					String producentLand, String producentPostCode, String producentCity, String producentEmploee, String producentTelefone1,
+					String cproducentTelefone2, String producentTelefone3, String producentEmail, String producentLogicId,
+					String producentNote) {
 		super();
 		this.id = id;
-		this.producentStations = producentStations;
-		this.producentName = producentName;
+		this.producerStations = producerStations;
+		this.producerName = producentName;
 		this.producentStreet = producentStreet;
-		this.producentLandPostCode = producentLandPostCode;
+		this.producentLand = producentLand;
+		this.producentPostCode = producentPostCode;
 		this.producentCity = producentCity;
 		this.producentEmploee = producentEmploee;
 		this.producentTelefone1 = producentTelefone1;
@@ -95,12 +100,12 @@ public class Producent {
 
 
 	public String getProducentName() {
-		return producentName;
+		return producerName;
 	}
 
 
-	public void setProducentName(String producentName) {
-		this.producentName = producentName;
+	public void setProducentName(String producerName) {
+		this.producerName = producerName;
 	}
 
 
@@ -114,13 +119,13 @@ public class Producent {
 	}
 
 
-	public List<ProducentStation> getProducentStations() {
-		return producentStations;
+	public List<ProducerStation> getProducerStations() {
+		return producerStations;
 	}
 
 
-	public void setProducentStations(List<ProducentStation> producentStations) {
-		this.producentStations = producentStations;
+	public void setProducerStations(List<ProducerStation> producerStations) {
+		this.producerStations = producerStations;
 	}
 
 
@@ -140,23 +145,21 @@ public class Producent {
 	}
 
 
-
-
-
-	public String getProducentLandPostCode() {
-		return producentLandPostCode;
+	public String getProducentLand() {
+		return producentLand;
 	}
 
-
-
-
-
-	public void setProducentLandPostCode(String producentLandPostCode) {
-		this.producentLandPostCode = producentLandPostCode;
+	public void setProducentLand(String producentLand) {
+		this.producentLand = producentLand;
 	}
 
+	public String getProducentPostCode() {
+		return producentPostCode;
+	}
 
-
+	public void setProducentPostCode(String producentPostCode) {
+		this.producentPostCode = producentPostCode;
+	}
 
 
 	public String getProducentEmploee() {
