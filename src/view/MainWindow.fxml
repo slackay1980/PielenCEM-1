@@ -62,7 +62,7 @@
             <Menu mnemonicParsing="false" text="Logistik">
                <items>
                   <MenuItem fx:id="newForwarder" mnemonicParsing="false" onAction="#addNewForwarderViewShow" text="Neue Spedition anlegen" />
-                  <MenuItem mnemonicParsing="false" text="Neue Relation anlegen..." />
+                  <MenuItem fx:id="addRelationViewShow" mnemonicParsing="false" onAction="#addRelationViewShow" text="Neue Relation anlegen..." />
                   <MenuItem mnemonicParsing="false" text="Frachten" />
                   <MenuItem mnemonicParsing="false" text="Neuen Benutzer" />
                </items>

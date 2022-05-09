@@ -190,7 +190,7 @@ public class MainWindowController {
         }
     };
 
-    @FXML // Menu -> Logistik -> Neue Spedition anlegen
+    @FXML // Menu ->Logistik -> Relation
     private void addProducerStationViewShow() {
         Parent root;
         try {
@@ -218,7 +218,7 @@ public class MainWindowController {
 
 
 
-    @FXML // Menu ->Hersteller -> Neuen Werk anlegen
+    @FXML // Menu -> Logistik -> Neue Spedition anlegen
     private void addNewForwarderViewShow() {
         Parent root;
         try {
@@ -244,10 +244,35 @@ public class MainWindowController {
         }
     };
 
+    @FXML // Menu -> Logistik -> Neue Spedition anlegen
+    private void addRelationViewShow() {
+        Parent root;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddRelationView.fxml"));
+
+            root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Neuen Werk anlegen ...");
+
+            stage.setScene(new Scene(root, 600, 600));
+
+            stage.initOwner(parentStage);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            AddRelationController  addRelationController = (AddRelationController) loader.getController();
+            addRelationController.setStage(stage);
+
+            stage.showAndWait();
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    };
+
 
     @FXML
-    private void initialize()
-    {
+    private void initialize() {
         prepareTreeView();
         setHandlerOnTreeView();
 

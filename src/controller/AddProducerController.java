@@ -45,12 +45,8 @@ public class AddProducerController extends Controller {
     @FXML
     private TextField producerLogicID;
 
-
-
-
     @FXML
-    private void btnSaveClicked()
-    {
+    private void btnSaveClicked() {
         setProducer();
         if (producer!=null) {
             if(new ProducerService().saveProducer(producer)) {
@@ -66,6 +62,7 @@ public class AddProducerController extends Controller {
             }
         }
     }
+
 
     @FXML
     private void btnCancelClicked()

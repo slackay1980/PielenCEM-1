@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="535.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddForwarderController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="535.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddRelationController">
    <children>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="527.0" prefWidth="600.0">
          <children>
@@ -29,7 +29,7 @@
                   <Line endX="43.0" layoutX="116.0" layoutY="71.0" startX="-76.0" startY="1.0" strokeWidth="3.0" />
                </children>
             </Pane>
-            <TextField fx:id="forwarderName" layoutX="141.0" layoutY="129.0" prefHeight="30.0" prefWidth="205.0" />
+            <TextField fx:id="relationCustomerStationr" layoutX="141.0" layoutY="129.0" prefHeight="30.0" prefWidth="205.0" />
             <Button fx:id="btnSave" layoutX="239.0" layoutY="456.0" mnemonicParsing="false" onAction="#btnSaveClicked" prefHeight="42.0" prefWidth="147.0" text="Speichern" />
             <Button fx:id="btnCancel" layoutX="422.0" layoutY="456.0" mnemonicParsing="false" onAction="#btnCancelClicked" prefHeight="42.0" prefWidth="147.0" text="Abbrechen" />
             <Label layoutX="39.0" layoutY="129.0" prefHeight="30.0" prefWidth="89.0" text="Ladestelle">
@@ -38,29 +38,31 @@
                </font>
             </Label>
             <Button layoutX="372.0" layoutY="131.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="101.0" text="Suchen" />
-            <TextField fx:id="forwarderName1" layoutX="141.0" layoutY="187.0" prefHeight="30.0" prefWidth="205.0" />
+            <TextField fx:id="relationProducerStation" layoutX="141.0" layoutY="187.0" prefHeight="30.0" prefWidth="205.0" />
             <Label layoutX="39.0" layoutY="187.0" prefHeight="30.0" prefWidth="89.0" text="Lieferstelle">
                <font>
                   <Font name="System Font" size="18.0" />
                </font>
             </Label>
             <Button layoutX="372.0" layoutY="189.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="101.0" text="Suchen" />
-            <Label layoutX="43.0" layoutY="262.0" prefHeight="27.0" prefWidth="89.0" text="Entfernung (km)" />
-            <TextField layoutX="141.0" layoutY="259.0" prefHeight="27.0" prefWidth="147.0" />
-            <Label layoutX="43.0" layoutY="313.0" prefHeight="27.0" prefWidth="89.0" text="Verzollung (j/n)" />
-            <Label layoutX="43.0" layoutY="364.0" prefHeight="27.0" prefWidth="89.0" text="Optional" />
-            <TextField layoutX="141.0" layoutY="361.0" prefHeight="27.0" prefWidth="147.0" />
-            <Label layoutX="327.0" layoutY="264.0" prefHeight="27.0" prefWidth="89.0" text="Optional" />
-            <TextField layoutX="425.0" layoutY="261.0" prefHeight="27.0" prefWidth="147.0" />
-            <Label layoutX="327.0" layoutY="315.0" prefHeight="27.0" prefWidth="89.0" text="Optional" />
-            <TextField layoutX="425.0" layoutY="312.0" prefHeight="27.0" prefWidth="147.0" />
-            <Label layoutX="327.0" layoutY="366.0" prefHeight="27.0" prefWidth="89.0" text="Optiuonal" />
-            <TextField layoutX="425.0" layoutY="363.0" prefHeight="27.0" prefWidth="147.0" />
-            <CheckBox layoutX="141.0" layoutY="320.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="147.0" text="Ja (Häckchen)/ Nein (keins)">
+            <Label layoutX="39.0" layoutY="303.0" prefHeight="27.0" prefWidth="89.0" text="Entfernung (km)" />
+            <TextField fx:id="relationDistance" layoutX="137.0" layoutY="300.0" prefHeight="27.0" prefWidth="147.0" />
+            <Label layoutX="39.0" layoutY="354.0" prefHeight="27.0" prefWidth="89.0" text="Verzollung (j/n)" />
+            <Label layoutX="39.0" layoutY="405.0" prefHeight="27.0" prefWidth="89.0" text="Optional" />
+            <TextField fx:id="relationOptional1" layoutX="137.0" layoutY="402.0" prefHeight="27.0" prefWidth="147.0" />
+            <Label layoutX="323.0" layoutY="305.0" prefHeight="27.0" prefWidth="89.0" text="Optional" />
+            <TextField fx:id="relationOptional2" layoutX="421.0" layoutY="302.0" prefHeight="27.0" prefWidth="147.0" />
+            <Label layoutX="323.0" layoutY="356.0" prefHeight="27.0" prefWidth="89.0" text="Optional" />
+            <TextField fx:id="relationOptional3" layoutX="421.0" layoutY="353.0" prefHeight="27.0" prefWidth="147.0" />
+            <Label layoutX="323.0" layoutY="407.0" prefHeight="27.0" prefWidth="89.0" text="Optiuonal" />
+            <TextField fx:id="relationOPtional4" layoutX="421.0" layoutY="404.0" prefHeight="27.0" prefWidth="147.0" />
+            <CheckBox fx:id="relationCustom" layoutX="137.0" layoutY="361.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="147.0" text="Ja (Häckchen)/ Nein (keins)">
                <font>
                   <Font size="10.0" />
                </font>
             </CheckBox>
+            <Label layoutX="39.0" layoutY="237.0" prefHeight="42.0" prefWidth="89.0" text="Relationbezei- chnung" wrapText="true" />
+            <TextField fx:id="relationProducerStation" editable="false" layoutX="137.0" layoutY="234.0" prefHeight="42.0" prefWidth="335.0" />
          </children>
       </Pane>
    </children>
