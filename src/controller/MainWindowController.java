@@ -216,8 +216,6 @@ public class MainWindowController {
         }
     };
 
-
-
     @FXML // Menu -> Logistik -> Neue Spedition anlegen
     private void addNewForwarderViewShow() {
         Parent root;
@@ -253,7 +251,7 @@ public class MainWindowController {
             root = loader.load();
 
             Stage stage = new Stage();
-            stage.setTitle("Neuen Werk anlegen ...");
+            stage.setTitle("Neue Relation anlegen ...");
 
             stage.setScene(new Scene(root, 600, 600));
 
@@ -273,11 +271,8 @@ public class MainWindowController {
 
     @FXML
     private void initialize() {
-        prepareTreeView();
-        setHandlerOnTreeView();
-
-
-
+       prepareTreeView();
+       setHandlerOnTreeView();
 
     }
 
@@ -299,7 +294,7 @@ public class MainWindowController {
         orderCiment.getChildren().add(new TreeItem<String>("in dem Zeitraum..."));
         orderCiment.setExpanded(true);
 
-        TreeItem<String> inputOrder = new TreeItem<String>("Bestellung");
+        TreeItem<String> inputOrder = new TreeItem<String>("Nach Kunden sortiert");
         //bestellung.setGraphic(new Rectangle(10.0,10.0, Color.BLUE));
         inputOrder.getChildren().add(new TreeItem<String>("Bestellung eingeben"));
         inputOrder.getChildren().add(new TreeItem<String>("Bestellung eingeben (Kurzform)"));
@@ -338,6 +333,8 @@ public class MainWindowController {
         root.getChildren().add(transporter);
         root.getChildren().add(relationFreight);
         controlList.setRoot(root);
+
+
     }
 
     private void setHandlerOnTreeView() {

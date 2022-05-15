@@ -41,9 +41,9 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Kunde">
           <items>
-            <MenuItem fx:id="mnuCustomerNeu" mnemonicParsing="false" onAction="#addCustomerShow" text="Neuen Kunden anlegen" />
+            <MenuItem fx:id="mnuCustomerNeu" mnemonicParsing="false" onAction="#addCustomerShow" text="Kunde neu ..." />
             <MenuItem fx:id="mnuCustomerStationNeu" mnemonicParsing="false" onAction="#addCustomerStationShow" text="Kundenstationen ..." />
-                  <MenuItem fx:id="mnuAllCustomersView" mnemonicParsing="false" onAction="#allCustomersViewShow" text="List alle Kunden" />
+                  <MenuItem fx:id="mnuAllCustomersView" mnemonicParsing="false" onAction="#allCustomersViewShow" text="alle Kunden ..." />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text=".   .   ." />
             <MenuItem mnemonicParsing="false" text=".   .   ." />
@@ -51,9 +51,8 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Hersteller">
           <items>
-            <MenuItem mnemonicParsing="false" text="Alle Hersteller zeigen" />
-                  <MenuItem fx:id="addProducentMenuItem" mnemonicParsing="false" onAction="#addProducerViewShow" text="Neuen Hersteller anlegen" />
-                  <MenuItem fx:id="addProducerStationaddProducerStation" mnemonicParsing="false" onAction="#addProducerStationViewShow" text="Neuen Werk anlegen" />
+                  <MenuItem fx:id="addProducentMenuItem" mnemonicParsing="false" onAction="#addProducerViewShow" text="Hersteller neu ..." />
+                  <MenuItem fx:id="addProducerStationaddProducerStation" mnemonicParsing="false" onAction="#addProducerStationViewShow" text="Hersteller Werke ..." />
                   <MenuItem mnemonicParsing="false" text=".   .   ." />
                   <MenuItem mnemonicParsing="false" text=".   .   ." />
                   <MenuItem mnemonicParsing="false" text=".   .   ." />
@@ -61,10 +60,10 @@
         </Menu>
             <Menu mnemonicParsing="false" text="Logistik">
                <items>
-                  <MenuItem fx:id="newForwarder" mnemonicParsing="false" onAction="#addNewForwarderViewShow" text="Neue Spedition anlegen" />
-                  <MenuItem fx:id="addRelationViewShow" mnemonicParsing="false" onAction="#addRelationViewShow" text="Neue Relation anlegen..." />
-                  <MenuItem mnemonicParsing="false" text="Frachten" />
-                  <MenuItem mnemonicParsing="false" text="Neuen Benutzer" />
+                  <MenuItem fx:id="newForwarder" mnemonicParsing="false" onAction="#addNewForwarderViewShow" text="Spedition neu ..." />
+                  <MenuItem fx:id="addRelationViewShow" mnemonicParsing="false" onAction="#addRelationViewShow" text="Relation neu ..." />
+                  <MenuItem mnemonicParsing="false" text="Frachten ..." />
+                  <MenuItem mnemonicParsing="false" text=".  .  ." />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Option-1">
@@ -132,7 +131,7 @@
     </MenuBar>
     <SplitPane dividerPositions="0.2505567928730512" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <items>
-        <AnchorPane maxWidth="-Infinity">
+        <AnchorPane maxWidth="300.0" prefWidth="250.0">
           <children>
             <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Menü" textAlignment="CENTER" wrapText="false">
               <font>

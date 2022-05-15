@@ -42,7 +42,7 @@
             <Button fx:id="btnCancel" layoutX="422.0" layoutY="420.0" mnemonicParsing="false" onAction="#btnCancelClicked" prefHeight="42.0" prefWidth="147.0" text="Abbrechen" />
             <Label layoutX="325.0" layoutY="149.0" prefHeight="30.0" prefWidth="97.0" text="Tel. Büro" />
             <TextField fx:id="forwarderEmploee" layoutX="124.0" layoutY="353.0" />
-            <Label layoutX="325.0" layoutY="197.0" prefHeight="30.0" prefWidth="97.0" text="Tel. Mobik" />
+            <Label layoutX="325.0" layoutY="197.0" prefHeight="30.0" prefWidth="97.0" text="Tel. Mobil" />
             <TextField fx:id="forwarderTelOffice" layoutX="406.0" layoutY="152.0" />
             <Label layoutX="325.0" layoutY="246.0" prefHeight="30.0" prefWidth="97.0" text="Fax" />
             <TextField fx:id="forwarderTelMobile" layoutX="406.0" layoutY="199.0" />

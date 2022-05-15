@@ -68,6 +68,7 @@ public class AddProducerController extends Controller {
     private void btnCancelClicked()
     {
         getStage().close();
+
     }
 
     private boolean ifTxtFieldsValid() {

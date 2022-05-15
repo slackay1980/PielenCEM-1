@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 
@@ -15,7 +16,10 @@ public class AddRelationController extends Controller{
     private TextField relationProducerStation;
 
     @FXML
-    private TextField relationCustomerStationr;
+    private TextField relationCustomerStation;
+
+    @FXML
+    private TextField relationName;
 
     @FXML
     private TextField relationDistance;
@@ -35,6 +39,15 @@ public class AddRelationController extends Controller{
     @FXML
     private CheckBox relationCustom;
 
+    @FXML
+    private void btnProducerStationClicked() {
+
+    }
+
+    @FXML
+    private void btnCustomerStationClicked() {
+
+    }
 
     @FXML
     private void btnSaveClicked() {
