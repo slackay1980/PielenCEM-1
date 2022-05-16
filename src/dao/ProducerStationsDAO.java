@@ -39,11 +39,11 @@ public class ProducerStationsDAO {
 		
 
 		Session session = util.HibernateUtil.getSessionFactory().openSession();
-		String querry = "FROM ProducerStation as cs WHERE cs.stationName LIKE : searchString";
+		String querry = "FROM ProducerStation as ps WHERE ps.stationName LIKE : searchString OR ps.stationCity LIKE : searchString";
 		
-		List<ProducerStation> producenttationsLikeString = (List<ProducerStation>) session.createQuery(querry, ProducerStation.class).setString("searchString",searchString).list();
+		List<ProducerStation> producentStationsLikeString = (List<ProducerStation>) session.createQuery(querry, ProducerStation.class).setString("searchString",searchString).list();
 		
-		return producenttationsLikeString;
+		return producentStationsLikeString;
 	}
 
 	public List<ProducerStation> getAllProducerStationsForCertainProducer(int producerID) throws HibernateException, Exception {

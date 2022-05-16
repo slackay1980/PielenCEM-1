@@ -106,4 +106,14 @@ public class CustomerService {
         }
         return customers;
     }
+
+    public List<CustomerStation> getCustomerStationsLikeString(String customerStationString) {
+        List<CustomerStation> customerStations = null;
+        try {
+            customerStations = new CustomerStationDAO().getCustomerStationAccordToString(customerStationString);
+        } catch (Exception e) {
+
+        }
+        return customerStations;
+    }
 }

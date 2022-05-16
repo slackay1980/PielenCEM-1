@@ -36,7 +36,7 @@ public class CustomerStationDAO {
 	public List<CustomerStation> getCustomerStationAccordToString(String searchString) throws HibernateException, Exception {
 		
 		Session session = util.HibernateUtil.getSessionFactory().openSession();
-		String querry = "FROM CustomerStation as cs WHERE cs.stationName LIKE : searchString";
+		String querry = "FROM CustomerStation as cs WHERE cs.stationName LIKE : searchString OR cs.stationCity LIKE : searchString";
 		
 		@SuppressWarnings("deprecation")
 		List<CustomerStation> customerStationsLikeString = (List<CustomerStation>) session.createQuery(querry, CustomerStation.class).setString("searchString",searchString).list();

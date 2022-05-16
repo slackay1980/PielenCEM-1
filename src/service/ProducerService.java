@@ -83,4 +83,18 @@ public class ProducerService {
             return false;
         }
     }
+
+    public List<ProducerStation> getProducerStationsLikeString(String producerStationString) {
+
+        List<ProducerStation>  listProducerStations = null;
+
+        try {
+            listProducerStations = new ProducerStationsDAO().getProducentStationAccordToString(producerStationString);
+            return listProducerStations;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return listProducerStations;
+        }
+    }
 }

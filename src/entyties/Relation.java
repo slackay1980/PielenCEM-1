@@ -22,15 +22,6 @@ public class Relation {
     @OneToMany(mappedBy = "relation")
     private List<Freight> freights;
 
-    public List<Freight> getFreights() {
-        return freights;
-    }
-
-    public void setFreights(List<Freight> freights) {
-        this.freights = freights;
-    }
-
-
 
     @Column(name = "RELATION_NAME")
     private String relationName;
@@ -71,13 +62,27 @@ public class Relation {
         this.producerStation = producerStation;
     }
 
+    public List<Freight> getFreights() {
+        return freights;
+    }
+
+    public void setFreights(List<Freight> freights) {
+        this.freights = freights;
+    }
+
     public String getRelationName() {
         return relationName;
     }
 
-    public void setRelationName(String relationName) {
-        this.relationName = relationName;
+    public void setRelationName(String relationName)
+    {
+        String relationNameStr;
+        relationNameStr = producerStation.getStationName()+", "+producerStation.getStationCity()+
+        " - "+customerStation.getStationCity()+" ("+customerStation.getStationName()+")";
+        this.relationName = relationNameStr;
     }
+
+
 
     public int getDistance() {
         return distance;
