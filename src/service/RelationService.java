@@ -32,4 +32,30 @@ public class RelationService {
             return relation;
         }
     }
+
+    public  Boolean saveRelation(Relation relation) {
+        Boolean saved = false;
+        try {
+            new RelationDAO().saveRelation(relation);
+            saved = true;
+            return saved;
+        }
+        catch (Exception e) {
+            return saved;
+        }
+    }
+
+
+    public  Boolean updateRelation(Relation relation) {
+
+        try {
+            new RelationDAO().updateRelation(relation);
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
+
+
+    }
 }

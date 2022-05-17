@@ -28,6 +28,8 @@ public class AddRelationController extends Controller{
     private CustomerStation customerStation=null;
     private Relation relation;
 
+    TriState state;
+
     public  AddRelationController() {
 
     }
@@ -84,6 +86,35 @@ public class AddRelationController extends Controller{
 
     @FXML
     private void btnSaveClicked() {
+        prepareFieldsToSave();
+
+        switch (state) {
+            case triStateTrue:{
+                if (new RelationService().updateRelation(relation)) {
+                    new AlertMessage("Saved",relation.getRelationName(),"Die Relation wurde gespeichert");
+                    getStage().close();
+                }
+                else {
+                    new AlertMessage("Fehler","","");
+                    getStage().close();
+                }
+                break;
+            }
+
+            case triStateFalse:{
+                if (new RelationService().saveRelation(relation)) {
+                    new AlertMessage("Saved",relation.getRelationName(),"Die Relation wurde gespeichert");
+                    getStage().close();
+                }
+                else {
+                    new AlertMessage("Fehler","","");
+                    getStage().close();
+                }
+                break;
+            }
+
+        }
+
 
     }
 
@@ -98,6 +129,7 @@ public class AddRelationController extends Controller{
     @FXML
     private void initialize() {
         System.out.println("Initialization");
+        disableFields();
         setKeyHandlerToProducerStation();
         setKeyHandlerToCustomerStation();
     }
@@ -105,55 +137,62 @@ public class AddRelationController extends Controller{
     private void setKeyHandlerToProducerStation() {
         relationProducerStation.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
                 if(keyEvent.getCode()== KeyCode.ENTER ) {
-
-                    System.out.println("KeyPressed");
-                    List<ProducerStation> list = new ProducerService().getProducerStationsLikeString(relationProducerStation.getText());
-                    System.out.println(list.toString());
-
-                    if (list.size()>0) {
-                        PoolDownDialogProducerStation dialog = new PoolDownDialogProducerStation(getStage(), relationProducerStation, list);
-                        int i = dialog.showDialog();
-                        if (i == -1) {
-                            relationProducerStation.setText("");
-                        }
-
-                        else {
-                            producerStation = list.get(i);
-                            relationProducerStation.setText(producerStation.getStationName() + ", " + producerStation.getStationCity());
-                            relationProducerStation.setEditable(false);
-                            setRelationTextOnFormIfExist();
-                        }
-
-                    }
+                    searchAndSetProducerStation();
                 }
         });
+    }
+
+    private void searchAndSetProducerStation() {
+        System.out.println("KeyPressed");
+        List<ProducerStation> list = new ProducerService().getProducerStationsLikeString(relationProducerStation.getText());
+        System.out.println(list.toString());
+
+        if (list.size()>0) {
+            PoolDownDialogProducerStation dialog = new PoolDownDialogProducerStation(getStage(), relationProducerStation, list);
+            int i = dialog.showDialog();
+            if (i == -1) {
+                relationProducerStation.setText("");
+            }
+
+            else {
+                producerStation = list.get(i);
+                relationProducerStation.setText(producerStation.getStationName() + ", " + producerStation.getStationCity());
+                relationProducerStation.setEditable(false);
+                setRelationTextOnFormIfExist();
+            }
+
+        }
     }
 
     private void setKeyHandlerToCustomerStation() {
         relationCustomerStation.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
             if(keyEvent.getCode()== KeyCode.ENTER ) {
-
-                System.out.println("KeyPressed");
-                List<CustomerStation> list = new CustomerService().getCustomerStationsLikeString(relationCustomerStation.getText());
-                System.out.println(list.toString());
-
-                if (list.size()>0) {
-                    PoolDownDialogCustomerStation dialog = new PoolDownDialogCustomerStation(getStage(), relationCustomerStation, list);
-                    int i = dialog.showDialog();
-                    if (i == -1) {
-                        relationCustomerStation.setText("");
-                    }
-
-                    else {
-                        customerStation = list.get(i);
-                        relationCustomerStation.setText(customerStation.getStationName() + ", " + customerStation.getStationCity());
-                        relationCustomerStation.setEditable(false);
-                        setRelationTextOnFormIfExist();
-                    }
-
-                }
+                searchAndSetCustomerStation();
             }
         });
+    }
+
+    private void searchAndSetCustomerStation() {
+
+        System.out.println("KeyPressed");
+        List<CustomerStation> list = new CustomerService().getCustomerStationsLikeString(relationCustomerStation.getText());
+        System.out.println(list.toString());
+
+        if (list.size()>0) {
+            PoolDownDialogCustomerStation dialog = new PoolDownDialogCustomerStation(getStage(), relationCustomerStation, list);
+            int i = dialog.showDialog();
+            if (i == -1) {
+                relationCustomerStation.setText("");
+            }
+
+            else {
+                customerStation = list.get(i);
+                relationCustomerStation.setText(customerStation.getStationName() + ", " + customerStation.getStationCity());
+                relationCustomerStation.setEditable(false);
+                setRelationTextOnFormIfExist();
+            }
+
+        }
     }
 
     private void disableFindProducerStation() {
@@ -192,7 +231,7 @@ public class AddRelationController extends Controller{
     private void setRelationTextOnFormIfExist() {
 
         if ((producerStation!=null)&&(customerStation!=null)) {
-            TriState state;
+
             state = new RelationService().ifRelationExist(customerStation.getId(), producerStation.getId());
 
             switch (state) {
@@ -212,8 +251,11 @@ public class AddRelationController extends Controller{
             if (relation!=null) {
 
                 relationName.setText(relation.getRelationName());
+                relationDistance.setDisable(false);
                 relationDistance.setText(Integer.toString(relation.getDistance()));
+                relationCustom.setDisable(false);
                 relationCustom.setSelected(relation.isIfCustom());
+                btnSave.setDisable(false);
             }
             else {
                 new AlertMessage(
@@ -221,6 +263,7 @@ public class AddRelationController extends Controller{
                         "Datenbankzugrif Fehler",
                         "Es konnten keine Daten aus Datenbank abgerufen werden"
                 );
+                getStage().close();
             }
     }
 
@@ -230,6 +273,24 @@ public class AddRelationController extends Controller{
                 " - "+customerStation.getStationCity()+" ("+customerStation.getStationName()+")"
         );
 
+        //relation = new Relation();
+        relationDistance.setDisable(false);
+        //relationDistance.setText(Integer.toString(relation.getDistance()));
+        relationCustom.setDisable(false);
+        //relationCustom.setSelected(relation.isIfCustom());
+        btnSave.setDisable(false);
+
+    }
+
+    private void prepareFieldsToSave() {
+        if (relation==null) {
+            relation = new Relation();
+        }
+            relation.setProducerStation(producerStation);
+            relation.setCustomerStation(customerStation);
+            relation.setRelationName(relationName.getText());
+            relation.setDistance(Integer.parseInt(relationDistance.getText()));
+            relation.setIfCustom(relationCustom.isSelected());
     }
 
 

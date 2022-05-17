@@ -159,8 +159,7 @@ public class AddCustomerStationController extends Controller {
 
 
     @FXML
-    private void initialize()
-    {
+    private void initialize() {
         // initialise necessery lists
         regions = new CustomerService().getAllRegions();
         fillObservableListRegions(regions);

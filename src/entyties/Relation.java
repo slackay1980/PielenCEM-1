@@ -76,10 +76,13 @@ public class Relation {
 
     public void setRelationName(String relationName)
     {
-        String relationNameStr;
-        relationNameStr = producerStation.getStationName()+", "+producerStation.getStationCity()+
-        " - "+customerStation.getStationCity()+" ("+customerStation.getStationName()+")";
-        this.relationName = relationNameStr;
+        if ((relationName==null)||(relationName.equals(""))) {
+            relationName = producerStation.getStationName() + ", " + producerStation.getStationCity() +
+                    " - " + customerStation.getStationCity() + " (" + customerStation.getStationName() + ")";
+
+        }
+
+        this.relationName = relationName;
     }
 
 

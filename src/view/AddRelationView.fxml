@@ -55,7 +55,7 @@
             <Label layoutX="323.0" layoutY="356.0" prefHeight="27.0" prefWidth="89.0" text="Optional" />
             <TextField fx:id="relationOptional3" layoutX="421.0" layoutY="353.0" prefHeight="27.0" prefWidth="147.0" />
             <Label layoutX="323.0" layoutY="407.0" prefHeight="27.0" prefWidth="89.0" text="Optiuonal" />
-            <TextField fx:id="relationOPtional4" layoutX="421.0" layoutY="404.0" prefHeight="27.0" prefWidth="147.0" />
+            <TextField fx:id="relationOptional4" layoutX="421.0" layoutY="404.0" prefHeight="27.0" prefWidth="147.0" />
             <CheckBox fx:id="relationCustom" layoutX="137.0" layoutY="361.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="147.0" text="Ja (Häckchen)/ Nein (keins)">
                <font>
                   <Font size="10.0" />

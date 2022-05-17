@@ -16,6 +16,22 @@ public class RelationDAO {
         // TODO Auto-generated constructor stub
     }
 
+    public void saveRelation(Relation relation) throws HibernateException, Exception {
+        Session session = util.HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction=session.beginTransaction();
+        session.save(relation);
+        transaction.commit();
+        session.close();
+    }
+
+    public void updateRelation(Relation relation) throws HibernateException, Exception {
+        Session session = util.HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction=session.beginTransaction();
+        session.update(relation);
+        transaction.commit();
+        session.close();
+    }
+
     public Boolean getRelationIfExist(int producerStationId, int customerStationId) throws Exception {
 
         Session session = util.HibernateUtil.getSessionFactory().openSession();
