@@ -4,6 +4,8 @@ import dao.RelationDAO;
 import entyties.Relation;
 import util.TriState;
 
+import java.util.List;
+
 public class RelationService {
 
     public TriState ifRelationExist(int producentStationId, int customerStationId) {
@@ -33,6 +35,19 @@ public class RelationService {
         }
     }
 
+    public List<Relation> getRelationLikeString(String relationString) {
+
+        List<Relation> relations = null;
+        try {
+            relations = new RelationDAO().getRelationLikeString(relationString);
+            return relations;
+
+        }
+        catch (Exception e) {
+            return relations;
+        }
+    }
+
     public  Boolean saveRelation(Relation relation) {
         Boolean saved = false;
         try {
@@ -53,6 +68,7 @@ public class RelationService {
             return true;
         }
         catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
 

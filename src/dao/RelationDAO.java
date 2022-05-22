@@ -44,6 +44,7 @@ public class RelationDAO {
 
         @SuppressWarnings("deprecation")
         List<Relation> relations = (List<Relation>) query.list();
+        session.close();
         if (relations.size()==0)
             return false;
         else
@@ -62,6 +63,21 @@ public class RelationDAO {
 
         @SuppressWarnings("deprecation")
         List<Relation> relations = (List<Relation>) query.list();
+        session.close();
         return relations.get(0);
+    }
+
+    public List<Relation> getRelationLikeString(String relationString) throws Exception {
+
+        Session session = util.HibernateUtil.getSessionFactory().openSession();
+        String SQLString = "FROM Relation as r WHERE r.relationName LIKE :relationString ";
+
+        Query query = session.createQuery(SQLString,Relation.class);
+        query.setString("relationString",relationString);
+
+        @SuppressWarnings("deprecation")
+        List<Relation> relations = (List<Relation>) query.list();
+        session.close();
+        return relations;
     }
 }

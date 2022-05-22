@@ -1,139 +1,230 @@
 package controller;
 
-import dao.ProducerStationsDAO;
-import entyties.CustomerStation;
-import entyties.ProducerStation;
+
+
 import entyties.Relation;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import service.CustomerService;
-import service.ProducerService;
 import service.RelationService;
-import util.TriState;
-import view.AlertMessage;
-import view.PoolDownDialogCustomer;
-import view.PoolDownDialogCustomerStation;
-import view.PoolDownDialogProducerStation;
+import view.PoolDownDialogRelation;
 
 import java.util.List;
 
 
-public class AddRelationController extends Controller{
+public class AddFreightController extends Controller {
 
-    private ProducerStation producerStation=null;
-    private CustomerStation customerStation=null;
-    private Relation relation;
+    private Relation relation = null;
 
-    TriState state;
-
-    public  AddRelationController() {
+    public AddFreightController() {
 
     }
 
 
     @FXML
-    private TextField relationProducerStation;
+    private TextField findRelation;
 
     @FXML
-    private TextField relationCustomerStation;
+    private TextField findForwarder;
 
     @FXML
-    private TextField relationName;
+    private CheckBox checkFreightTo;
 
     @FXML
-    private TextField relationDistance;
+    private CheckBox checkFreightFlat;
 
     @FXML
-    private TextField relationOptional1;
+    private TextField freightName;
 
     @FXML
-    private TextField relationOptional2;
+    private TextField freightPerToRate;
 
     @FXML
-    private TextField relationOptional3;
+    private TextField freightPerToSince;
 
     @FXML
-    private TextField relationOptional4;
+    private TextField freightPerToNote;
 
     @FXML
-    private CheckBox relationCustom;
+    private TextField freightFlatRate;
 
     @FXML
-    private Button btnFindProducerStation;
+    private TextField freightFlatSince;
 
     @FXML
-    private Button btnFindCustomerStation;
+    private TextField freightFlatNote;
+
+    @FXML
+    private Hyperlink freightHistory;
+
+    @FXML
+    private Button btnNewFreight;
+
+    @FXML
+    private Button btnFindRelation;
+
+    @FXML
+    private Button btnFindForwarder;
 
     @FXML
     private Button btnSave;
 
 
-
-
     @FXML
-    private void btnProducerStationClicked() {
+    private void btnFindRelationClicked() {
 
     }
 
     @FXML
-    private void btnCustomerStationClicked() {
+    private void btnFindForwarderClicked() {
+
+    }
+
+    @FXML
+    private void btnNewFreightClicked() {
 
     }
 
     @FXML
     private void btnSaveClicked() {
-        prepareFieldsToSave();
-
-        switch (state) {
-            case triStateTrue:{
-                if (new RelationService().updateRelation(relation)) {
-                    new AlertMessage("Saved",relation.getRelationName(),"Die Relation wurde gespeichert");
-                    getStage().close();
-                }
-                else {
-                    new AlertMessage("Fehler","","");
-                    getStage().close();
-                }
-                break;
-            }
-
-            case triStateFalse:{
-                if (new RelationService().saveRelation(relation)) {
-                    new AlertMessage("Saved",relation.getRelationName(),"Die Relation wurde gespeichert");
-                    getStage().close();
-                }
-                else {
-                    new AlertMessage("Fehler","","");
-                    getStage().close();
-                }
-                break;
-            }
-
-        }
-
-
     }
-
 
     @FXML
-    private void btnCancelClicked()
-    {
+    private void btnCancelClicked() {
         getStage().close();
     }
+
+    @FXML
+    private void freightHistoryClicked() {
+
+    }
+
+
 
 
     @FXML
     private void initialize() {
-        System.out.println("Initialization");
-        disableFields();
-        setKeyHandlerToProducerStation();
-        setKeyHandlerToCustomerStation();
+        setFlipFLopOnCheckBox();
+        setFieldsToStartState();
+        setKeyHandlerToRelation();
+
     }
 
+    private void setFlipFLopOnCheckBox() {
+        checkFreightTo.setSelected(true);
+        checkFreightFlat.setSelected(false);
+
+        checkFreightFlat.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                checkFreightTo.setSelected(!newValue);
+                freightPerToRate.setDisable(true);
+                freightPerToSince.setDisable(true);
+                freightPerToNote.setDisable(true);
+
+                freightFlatRate.setDisable(false);
+                freightFlatSince.setDisable(false);
+                freightFlatNote.setDisable(false);
+            }
+        });
+
+        checkFreightTo.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                checkFreightFlat.setSelected(!newValue);
+                freightPerToRate.setDisable(false);
+                freightPerToSince.setDisable(false);
+                freightPerToNote.setDisable(false);
+
+                freightFlatRate.setDisable(true);
+                freightFlatSince.setDisable(true);
+                freightFlatNote.setDisable(true);
+            }
+        });
+    }
+
+    private void setFieldsToStartState() {
+
+        freightHistory.setDisable(true);
+        btnSave.setDisable(true);
+        btnNewFreight.setDisable(true);
+
+    }
+
+    private void setKeyHandlerToRelation() {
+        findRelation.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+            if(keyEvent.getCode()== KeyCode.ENTER ) {
+                searchAndSetRelation();
+            }
+        });
+    }
+
+    private void searchAndSetRelation() {
+        System.out.println("KeyPressed");
+        List<Relation> list = new RelationService().getRelationLikeString(findRelation.getText());
+        System.out.println(list.toString());
+
+        if (list.size()>0) {
+            PoolDownDialogRelation dialog = new PoolDownDialogRelation(getStage(), findRelation, list);
+            int i = dialog.showDialog();
+            if (i == -1) {
+                findRelation.setText("");
+            }
+
+            else {
+                relation = list.get(i);
+                findRelation.setText(relation.getRelationName() );
+                findRelation.setEditable(false);
+                //  setRelationTextOnFormIfExist();
+            }
+
+        }
+    }
+/*
+    private void setKeyHandlerToCustomerStation() {
+        relationCustomerStation.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+            if(keyEvent.getCode()== KeyCode.ENTER ) {
+                searchAndSetCustomerStation();
+            }
+        });
+    }
+
+    private void searchAndSetCustomerStation() {
+
+        System.out.println("KeyPressed");
+        List<CustomerStation> list = new CustomerService().getCustomerStationsLikeString(relationCustomerStation.getText());
+        System.out.println(list.toString());
+
+        if (list.size()>0) {
+            PoolDownDialogCustomerStation dialog = new PoolDownDialogCustomerStation(getStage(), relationCustomerStation, list);
+            int i = dialog.showDialog();
+            if (i == -1) {
+                relationCustomerStation.setText("");
+            }
+
+            else {
+                customerStation = list.get(i);
+                relationCustomerStation.setText(customerStation.getStationName() + ", " + customerStation.getStationCity());
+                relationCustomerStation.setEditable(false);
+                setRelationTextOnFormIfExist();
+            }
+
+        }
+    }
+*/
+
+
+}
+
+
+
+/*
     private void setKeyHandlerToProducerStation() {
         relationProducerStation.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
                 if(keyEvent.getCode()== KeyCode.ENTER ) {
@@ -291,7 +382,6 @@ public class AddRelationController extends Controller{
             relation.setRelationName(relationName.getText());
             relation.setDistance(Integer.parseInt(relationDistance.getText()));
             relation.setIfCustom(relationCustom.isSelected());
-    }
+    }  */
 
 
-}

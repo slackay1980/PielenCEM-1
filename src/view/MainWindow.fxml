@@ -62,7 +62,7 @@
                <items>
                   <MenuItem fx:id="newForwarder" mnemonicParsing="false" onAction="#addNewForwarderViewShow" text="Spedition neu ..." />
                   <MenuItem fx:id="addRelationViewShow" mnemonicParsing="false" onAction="#addRelationViewShow" text="Relation neu ..." />
-                  <MenuItem mnemonicParsing="false" text="Frachten ..." />
+                  <MenuItem fx:id="addFreight" mnemonicParsing="false" onAction="#addFreightClicked" text="Frachten ..." />
                   <MenuItem mnemonicParsing="false" text=".  .  ." />
                </items>
             </Menu>

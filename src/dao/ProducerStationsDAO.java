@@ -61,6 +61,15 @@ public class ProducerStationsDAO {
 		return producerStationsLikeString;
 	}
 
+	public ProducerStation getStationById(int producerStationId) throws HibernateException, Exception{
+
+		Session session = util.HibernateUtil.getSessionFactory().openSession();
+
+		ProducerStation producerStation = (ProducerStation) session.get(ProducerStation.class, producerStationId);
+		session.close();
+		return producerStation;
+	}
+
 	public List<Region> getAllRegions() throws HibernateException, Exception{
 
 		Session session = util.HibernateUtil.getSessionFactory().openSession();

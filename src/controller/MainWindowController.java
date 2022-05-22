@@ -37,6 +37,10 @@ public class MainWindowController {
     @FXML
     private MenuItem addProducentMenuItem;
 
+    @FXML
+    private MenuItem addFreight;
+
+
 
     // Add a public no-args constructor
     public MainWindowController()
@@ -242,7 +246,7 @@ public class MainWindowController {
         }
     };
 
-    @FXML // Menu -> Logistik -> Neue Spedition anlegen
+    @FXML  // Menu -> Logistik -> Relation
     private void addRelationViewShow() {
         Parent root;
         try {
@@ -267,6 +271,32 @@ public class MainWindowController {
             e.printStackTrace();
         }
     };
+
+    @FXML // Menu -> Logistik -> Frachten
+    private void addFreightClicked() {
+        Parent root;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddFreightView.fxml"));
+
+            root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Neuen Fracht anlegen .../ Fracht managen");
+
+            stage.setScene(new Scene(root, 600, 600));
+
+            stage.initOwner(parentStage);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            AddFreightController  addFreightController = (AddFreightController) loader.getController();
+            addFreightController.setStage(stage);
+
+            stage.showAndWait();
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     @FXML
