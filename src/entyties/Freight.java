@@ -1,6 +1,7 @@
 package entyties;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -29,82 +30,27 @@ public class Freight {
     @JoinColumn(name="FORWARDER_ID")
     private Forwarder forwarder;
 
-    // 1 = per To ; 2 = pauschal
+    // 0 = per To ; 1 = pauschal
     @Column(name = "Typ")
     private int typ;
 
     @Column(name = "FREIGHT_PER_TO")
     private int freigtPerTo;
 
+    @Column(name = "FREIGHT_PER_TO_SINCE")
+    private Date freigtPerToSince;
+
     @Column(name = "FREIGHT_PER_TO_NOTE")
-    private String noteFreigtPerTo;
+    private String freigtPerToNote;
 
     @Column(name = "FREIGHT_PER_ORDER")
-    private int getFreigtPerOrder;
+    private int freigtPerOrder;
+
+    @Column(name = "FREIGHT_PER_ORDER_SINCE")
+    private Date freigtPerOrderSince;
 
     @Column(name = "FREIGHT_PER_ORDER_NOTE")
-    private String noteFreigtPerOrder;
-
-
-    @Column(name = "FREIGHT_PER_TO1")
-    private int freigtPerTo1;
-
-    @Column(name = "FREIGHT_PER_TO_NOTE1")
-    private String noteFreigtPerTo1;
-
-    @Column(name = "FREIGHT_PER_ORDER1")
-    private int getFreigtPerOrder1;
-
-    @Column(name = "FREIGHT_PER_ORDER_NOTE1")
-    private String noteFreigtPerOrder1;
-
-    @Column(name = "FREIGHT_PER_TO2")
-    private int freigtPerTo2;
-
-    @Column(name = "FREIGHT_PER_TO_NOTE2")
-    private String noteFreigtPerTo2;
-
-    @Column(name = "FREIGHT_PER_ORDER2")
-    private int getFreigtPerOrder2;
-
-    @Column(name = "FREIGHT_PER_ORDER_NOTE2")
-    private String noteFreigtPerOrder2;
-
-    @Column(name = "FREIGHT_PER_TO3")
-    private int freigtPerTo3;
-
-    @Column(name = "FREIGHT_PER_TO_NOTE3")
-    private String noteFreigtPerTo3;
-
-    @Column(name = "FREIGHT_PER_ORDER3")
-    private int getFreigtPerOrder3;
-
-    @Column(name = "FREIGHT_PER_ORDER_NOTE3")
-    private String noteFreigtPerOrder3;
-
-    @Column(name = "FREIGHT_PER_TO4")
-    private int freigtPerTo4;
-
-    @Column(name = "FREIGHT_PER_TO_NOTE4")
-    private String noteFreigtPerTo4;
-
-    @Column(name = "FREIGHT_PER_ORDER4")
-    private int getFreigtPerOrder4;
-
-    @Column(name = "FREIGHT_PER_ORDER_NOTE4")
-    private String noteFreigtPerOrder4;
-
-    @Column(name = "FREIGHT_PER_TO5")
-    private int freigtPerTo5;
-
-    @Column(name = "FREIGHT_PER_TO_NOTE5")
-    private String noteFreigtPerTo5;
-
-    @Column(name = "FREIGHT_PER_ORDER5")
-    private int getFreigtPerOrder5;
-
-    @Column(name = "FREIGHT_PER_ORDER_NOTE5")
-    private String noteFreigtPerOrder5;
+    private String freigtPerOrderNote;
 
 
 
@@ -117,12 +63,19 @@ public class Freight {
 
     }
 
-    public Freight(Relation relation, Forwarder forwarder, int typ, int freigtPerTo, int getFreigtPerOrder) {
+    public Freight(List<TransportOrder> transportOrders, Relation relation, Forwarder forwarder,
+                   int typ, int freigtPerTo, Date freigtPerToSince, String freigtPerToNote,
+                   int freigtPerOrder, Date freigtPerOrderSince, String freigtPerOrderNote) {
+        this.transportOrders = transportOrders;
         this.relation = relation;
         this.forwarder = forwarder;
         this.typ = typ;
         this.freigtPerTo = freigtPerTo;
-        this.getFreigtPerOrder = getFreigtPerOrder;
+        this.freigtPerToSince = freigtPerToSince;
+        this.freigtPerToNote = freigtPerToNote;
+        this.freigtPerOrder = freigtPerOrder;
+        this.freigtPerOrderSince = freigtPerOrderSince;
+        this.freigtPerOrderNote = freigtPerOrderNote;
     }
 
     public int getId() {
@@ -131,6 +84,14 @@ public class Freight {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public List<TransportOrder> getTransportOrders() {
+        return transportOrders;
+    }
+
+    public void setTransportOrders(List<TransportOrder> transportOrders) {
+        this.transportOrders = transportOrders;
     }
 
     public Relation getRelation() {
@@ -165,195 +126,43 @@ public class Freight {
         this.freigtPerTo = freigtPerTo;
     }
 
-    public int getGetFreigtPerOrder() {
-        return getFreigtPerOrder;
+    public Date getFreigtPerToSince() {
+        return freigtPerToSince;
     }
 
-    public void setGetFreigtPerOrder(int getFreigtPerOrder) {
-        this.getFreigtPerOrder = getFreigtPerOrder;
+    public void setFreigtPerToSince(Date freigtPerToSince) {
+        this.freigtPerToSince = freigtPerToSince;
     }
 
-    public String getNoteFreigtPerTo() {
-        return noteFreigtPerTo;
+    public String getFreigtPerToNote() {
+        return freigtPerToNote;
     }
 
-    public void setNoteFreigtPerTo(String noteFreigtPerTo) {
-        this.noteFreigtPerTo = noteFreigtPerTo;
+    public void setFreigtPerToNote(String freigtPerToNote) {
+        this.freigtPerToNote = freigtPerToNote;
     }
 
-    public String getNoteFreigtPerOrder() {
-        return noteFreigtPerOrder;
+    public int getFreigtPerOrder() {
+        return freigtPerOrder;
     }
 
-    public void setNoteFreigtPerOrder(String noteFreigtPerOrder) {
-        this.noteFreigtPerOrder = noteFreigtPerOrder;
+    public void setFreigtPerOrder(int freigtPerOrder) {
+        this.freigtPerOrder = freigtPerOrder;
     }
 
-    public int getFreigtPerTo1() {
-        return freigtPerTo1;
+    public Date getFreigtPerOrderSince() {
+        return freigtPerOrderSince;
     }
 
-    public void setFreigtPerTo1(int freigtPerTo1) {
-        this.freigtPerTo1 = freigtPerTo1;
+    public void setFreigtPerOrderSince(Date freigtPerOrderSince) {
+        this.freigtPerOrderSince = freigtPerOrderSince;
     }
 
-    public String getNoteFreigtPerTo1() {
-        return noteFreigtPerTo1;
+    public String getFreigtPerOrderNote() {
+        return freigtPerOrderNote;
     }
 
-    public void setNoteFreigtPerTo1(String noteFreigtPerTo1) {
-        this.noteFreigtPerTo1 = noteFreigtPerTo1;
-    }
-
-    public int getGetFreigtPerOrder1() {
-        return getFreigtPerOrder1;
-    }
-
-    public void setGetFreigtPerOrder1(int getFreigtPerOrder1) {
-        this.getFreigtPerOrder1 = getFreigtPerOrder1;
-    }
-
-    public String getNoteFreigtPerOrder1() {
-        return noteFreigtPerOrder1;
-    }
-
-    public void setNoteFreigtPerOrder1(String noteFreigtPerOrder1) {
-        this.noteFreigtPerOrder1 = noteFreigtPerOrder1;
-    }
-
-    public int getFreigtPerTo2() {
-        return freigtPerTo2;
-    }
-
-    public void setFreigtPerTo2(int freigtPerTo2) {
-        this.freigtPerTo2 = freigtPerTo2;
-    }
-
-    public String getNoteFreigtPerTo2() {
-        return noteFreigtPerTo2;
-    }
-
-    public void setNoteFreigtPerTo2(String noteFreigtPerTo2) {
-        this.noteFreigtPerTo2 = noteFreigtPerTo2;
-    }
-
-    public int getGetFreigtPerOrder2() {
-        return getFreigtPerOrder2;
-    }
-
-    public void setGetFreigtPerOrder2(int getFreigtPerOrder2) {
-        this.getFreigtPerOrder2 = getFreigtPerOrder2;
-    }
-
-    public String getNoteFreigtPerOrder2() {
-        return noteFreigtPerOrder2;
-    }
-
-    public void setNoteFreigtPerOrder2(String noteFreigtPerOrder2) {
-        this.noteFreigtPerOrder2 = noteFreigtPerOrder2;
-    }
-
-    public int getFreigtPerTo3() {
-        return freigtPerTo3;
-    }
-
-    public void setFreigtPerTo3(int freigtPerTo3) {
-        this.freigtPerTo3 = freigtPerTo3;
-    }
-
-    public String getNoteFreigtPerTo3() {
-        return noteFreigtPerTo3;
-    }
-
-    public void setNoteFreigtPerTo3(String noteFreigtPerTo3) {
-        this.noteFreigtPerTo3 = noteFreigtPerTo3;
-    }
-
-    public int getGetFreigtPerOrder3() {
-        return getFreigtPerOrder3;
-    }
-
-    public void setGetFreigtPerOrder3(int getFreigtPerOrder3) {
-        this.getFreigtPerOrder3 = getFreigtPerOrder3;
-    }
-
-    public String getNoteFreigtPerOrder3() {
-        return noteFreigtPerOrder3;
-    }
-
-    public void setNoteFreigtPerOrder3(String noteFreigtPerOrder3) {
-        this.noteFreigtPerOrder3 = noteFreigtPerOrder3;
-    }
-
-    public int getFreigtPerTo4() {
-        return freigtPerTo4;
-    }
-
-    public void setFreigtPerTo4(int freigtPerTo4) {
-        this.freigtPerTo4 = freigtPerTo4;
-    }
-
-    public String getNoteFreigtPerTo4() {
-        return noteFreigtPerTo4;
-    }
-
-    public void setNoteFreigtPerTo4(String noteFreigtPerTo4) {
-        this.noteFreigtPerTo4 = noteFreigtPerTo4;
-    }
-
-    public int getGetFreigtPerOrder4() {
-        return getFreigtPerOrder4;
-    }
-
-    public void setGetFreigtPerOrder4(int getFreigtPerOrder4) {
-        this.getFreigtPerOrder4 = getFreigtPerOrder4;
-    }
-
-    public String getNoteFreigtPerOrder4() {
-        return noteFreigtPerOrder4;
-    }
-
-    public void setNoteFreigtPerOrder4(String noteFreigtPerOrder4) {
-        this.noteFreigtPerOrder4 = noteFreigtPerOrder4;
-    }
-
-    public int getFreigtPerTo5() {
-        return freigtPerTo5;
-    }
-
-    public void setFreigtPerTo5(int freigtPerTo5) {
-        this.freigtPerTo5 = freigtPerTo5;
-    }
-
-    public String getNoteFreigtPerTo5() {
-        return noteFreigtPerTo5;
-    }
-
-    public void setNoteFreigtPerTo5(String noteFreigtPerTo5) {
-        this.noteFreigtPerTo5 = noteFreigtPerTo5;
-    }
-
-    public int getGetFreigtPerOrder5() {
-        return getFreigtPerOrder5;
-    }
-
-    public void setGetFreigtPerOrder5(int getFreigtPerOrder5) {
-        this.getFreigtPerOrder5 = getFreigtPerOrder5;
-    }
-
-    public String getNoteFreigtPerOrder5() {
-        return noteFreigtPerOrder5;
-    }
-
-    public void setNoteFreigtPerOrder5(String noteFreigtPerOrder5) {
-        this.noteFreigtPerOrder5 = noteFreigtPerOrder5;
-    }
-
-    public List<TransportOrder> getTransportOrders() {
-        return transportOrders;
-    }
-
-    public void setTransportOrders(List<TransportOrder> transportOrders) {
-        this.transportOrders = transportOrders;
+    public void setFreigtPerOrderNote(String freigtPerOrderNote) {
+        this.freigtPerOrderNote = freigtPerOrderNote;
     }
 }

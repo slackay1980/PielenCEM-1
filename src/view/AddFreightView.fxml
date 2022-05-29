@@ -70,6 +70,11 @@
                   <Font size="10.0" />
                </font>
             </Button>
+            <Label fx:id="attentionFreightFlate" layoutX="458.0" layoutY="277.0" prefHeight="63.0" prefWidth="113.0" text="Achtung, wenn Sie Fracht pauschal aktivieren, gehen die Informationen in Felder Fracht per To verlohren" textFill="#f5f2f2" wrapText="true">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>

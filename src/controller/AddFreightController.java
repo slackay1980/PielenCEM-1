@@ -2,25 +2,41 @@ package controller;
 
 
 
+import entyties.Forwarder;
+import entyties.Freight;
 import entyties.Relation;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import service.ForwarderService;
+import service.FreightService;
 import service.RelationService;
+import util.StateOfObjectRequest;
+import util.TriState;
+import view.AlertMessage;
+import view.AlertYesNo;
+import view.PoolDownDialogForwarder;
 import view.PoolDownDialogRelation;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 public class AddFreightController extends Controller {
 
     private Relation relation = null;
+    private Forwarder forwarder = null;
+    private Freight freight;
+    private TriState state;
 
     public AddFreightController() {
 
@@ -75,6 +91,9 @@ public class AddFreightController extends Controller {
     @FXML
     private Button btnSave;
 
+    @FXML
+    private Label attentionFreightFlate;
+
 
     @FXML
     private void btnFindRelationClicked() {
@@ -93,11 +112,39 @@ public class AddFreightController extends Controller {
 
     @FXML
     private void btnSaveClicked() {
+
+    if (freight==null) freight = new Freight();
+
+        if (checkFreightTo.isSelected() && (validateDateField(freightPerToSince.getText())!=null)&&(validateFieldsPerTo())) {
+            freight.setTyp(0);
+            freight.setFreigtPerTo(Integer.parseInt(freightPerToRate.getText()));
+
+            freight.setFreigtPerToSince(validateDateField(freightPerToSince.getText()));
+            freight.setFreigtPerToNote(freightPerToNote.getText());
+            new FreightService().saveFreight(freight);
+        }
+        else {
+            if (checkFreightFlat.isSelected() && (validateDateField(freightFlatSince.getText())!=null)&&validateFieldsFlat()) {
+                freight.setTyp(1);
+                freight.setFreigtPerOrder(Integer.parseInt(freightFlatRate.getText()));
+                freight.setFreigtPerOrderSince(validateDateField(freightFlatSince.getText()));
+                freight.setFreigtPerOrderNote(freightFlatNote.getText());
+                new FreightService().saveFreight(freight);
+            }
+            else {
+                new AlertMessage("Achtung","Eingabefehler","Nicht alle Daten sind korrekt");
+            }
+
+        }
+
     }
 
     @FXML
     private void btnCancelClicked() {
-        getStage().close();
+
+        if (new AlertYesNo("Achtung", "Sind Sie sicher").show()) {
+            getStage().close();
+        }
     }
 
     @FXML
@@ -107,13 +154,75 @@ public class AddFreightController extends Controller {
 
 
 
-
     @FXML
     private void initialize() {
+        attentionLabelsTo();
+        attentionLabelsFlat();
         setFlipFLopOnCheckBox();
         setFieldsToStartState();
         setKeyHandlerToRelation();
+        setKeyHandlerToForwarder();
 
+    }
+
+    private void attentionLabelsTo() {
+        checkFreightTo.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                if (!checkFreightTo.isSelected()) {
+                    attentionFreightFlate.setTextFill(Color.RED);
+                }
+            }
+        });
+
+        checkFreightTo.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                attentionFreightFlate.setTextFill( Color.web("0xF5F3F3"));
+            }
+        });
+    }
+
+    private void attentionLabelsFlat() {
+        checkFreightFlat.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                if (!checkFreightFlat.isSelected()) {
+                    attentionFreightFlate.setTextFill(Color.RED);
+                }
+            }
+        });
+
+        checkFreightFlat.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                attentionFreightFlate.setTextFill(Color.web("0xF5F3F3"));
+            }
+        });
+    }
+
+    private void invertFieldstToFrRateAktiv() {
+        freightPerToRate.setDisable(true);
+        freightPerToSince.setDisable(true);
+        freightPerToNote.setDisable(true);
+        freightPerToRate.setText("");
+        freightPerToSince.setText("");
+        freightPerToNote.setText("");
+        freightFlatRate.setDisable(false);
+        freightFlatSince.setDisable(false);
+        freightFlatNote.setDisable(false);
+    }
+
+    private void invertFieldstToFrPerToAktiv() {
+        freightPerToRate.setDisable(false);
+        freightPerToSince.setDisable(false);
+        freightPerToNote.setDisable(false);
+        freightFlatRate.setText("");
+        freightFlatSince.setText("");
+        freightFlatNote.setText("");
+        freightFlatRate.setDisable(true);
+        freightFlatSince.setDisable(true);
+        freightFlatNote.setDisable(true);
     }
 
     private void setFlipFLopOnCheckBox() {
@@ -124,13 +233,13 @@ public class AddFreightController extends Controller {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 checkFreightTo.setSelected(!newValue);
-                freightPerToRate.setDisable(true);
-                freightPerToSince.setDisable(true);
-                freightPerToNote.setDisable(true);
 
-                freightFlatRate.setDisable(false);
-                freightFlatSince.setDisable(false);
-                freightFlatNote.setDisable(false);
+                if (newValue) {
+                    invertFieldstToFrRateAktiv();
+                }
+                else {
+                    invertFieldstToFrPerToAktiv();
+                    }
             }
         });
 
@@ -138,13 +247,13 @@ public class AddFreightController extends Controller {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 checkFreightFlat.setSelected(!newValue);
-                freightPerToRate.setDisable(false);
-                freightPerToSince.setDisable(false);
-                freightPerToNote.setDisable(false);
+                if (newValue) {
+                  invertFieldstToFrPerToAktiv();
 
-                freightFlatRate.setDisable(true);
-                freightFlatSince.setDisable(true);
-                freightFlatNote.setDisable(true);
+                }
+                else {
+                   invertFieldstToFrRateAktiv();
+                }
             }
         });
     }
@@ -154,7 +263,7 @@ public class AddFreightController extends Controller {
         freightHistory.setDisable(true);
         btnSave.setDisable(true);
         btnNewFreight.setDisable(true);
-
+        invertFieldstToFrPerToAktiv();
     }
 
     private void setKeyHandlerToRelation() {
@@ -181,207 +290,166 @@ public class AddFreightController extends Controller {
                 relation = list.get(i);
                 findRelation.setText(relation.getRelationName() );
                 findRelation.setEditable(false);
-                //  setRelationTextOnFormIfExist();
+                prepareFormAccordToResponse();
             }
 
         }
     }
-/*
-    private void setKeyHandlerToCustomerStation() {
-        relationCustomerStation.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+
+    private void setKeyHandlerToForwarder() {
+        findForwarder.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
             if(keyEvent.getCode()== KeyCode.ENTER ) {
-                searchAndSetCustomerStation();
+                searchAndSetForwarder();
             }
         });
     }
 
-    private void searchAndSetCustomerStation() {
+    private void searchAndSetForwarder() {
 
         System.out.println("KeyPressed");
-        List<CustomerStation> list = new CustomerService().getCustomerStationsLikeString(relationCustomerStation.getText());
-        System.out.println(list.toString());
+        StateOfObjectRequest state = new ForwarderService().getForwarderLikeString(findForwarder.getText());
+        System.out.println(state.getList().toString());
 
-        if (list.size()>0) {
-            PoolDownDialogCustomerStation dialog = new PoolDownDialogCustomerStation(getStage(), relationCustomerStation, list);
-            int i = dialog.showDialog();
-            if (i == -1) {
-                relationCustomerStation.setText("");
-            }
-
-            else {
-                customerStation = list.get(i);
-                relationCustomerStation.setText(customerStation.getStationName() + ", " + customerStation.getStationCity());
-                relationCustomerStation.setEditable(false);
-                setRelationTextOnFormIfExist();
-            }
-
+        if(state.getError()==true) {
+            new AlertMessage("Fehler","Verbindung mit Datenbank","Es konnten keine Daten aus der Datenbank gelesen werden");
         }
-    }
-*/
+        else {
+            if (state.getList().size() > 0) {
 
-
-}
-
-
-
-/*
-    private void setKeyHandlerToProducerStation() {
-        relationProducerStation.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
-                if(keyEvent.getCode()== KeyCode.ENTER ) {
-                    searchAndSetProducerStation();
+                PoolDownDialogForwarder dialog = new PoolDownDialogForwarder(getStage(), findForwarder, (List<Forwarder>)state.getList());
+                int i = dialog.showDialog();
+                if (i == -1) {
+                    findForwarder.setText("");
+                } else {
+                    forwarder = (Forwarder) state.getList().get(i);
+                    findForwarder.setText(forwarder.getForwarderCity() + ", " + forwarder.getForwarderCity());
+                    findForwarder.setEditable(false);
+                    prepareFormAccordToResponse();
                 }
-        });
-    }
 
-    private void searchAndSetProducerStation() {
-        System.out.println("KeyPressed");
-        List<ProducerStation> list = new ProducerService().getProducerStationsLikeString(relationProducerStation.getText());
-        System.out.println(list.toString());
-
-        if (list.size()>0) {
-            PoolDownDialogProducerStation dialog = new PoolDownDialogProducerStation(getStage(), relationProducerStation, list);
-            int i = dialog.showDialog();
-            if (i == -1) {
-                relationProducerStation.setText("");
             }
-
             else {
-                producerStation = list.get(i);
-                relationProducerStation.setText(producerStation.getStationName() + ", " + producerStation.getStationCity());
-                relationProducerStation.setEditable(false);
-                setRelationTextOnFormIfExist();
-            }
+                new AlertMessage("Achtung","Nichts gefunden","Es konnten keine Einträge zu eingegebenem Suchkriterium gefunden werden" +
+                        "Bitte formulieren Sie Ihre Anfrage alternativ");
 
+            }
         }
-    }
-
-    private void setKeyHandlerToCustomerStation() {
-        relationCustomerStation.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
-            if(keyEvent.getCode()== KeyCode.ENTER ) {
-                searchAndSetCustomerStation();
-            }
-        });
-    }
-
-    private void searchAndSetCustomerStation() {
-
-        System.out.println("KeyPressed");
-        List<CustomerStation> list = new CustomerService().getCustomerStationsLikeString(relationCustomerStation.getText());
-        System.out.println(list.toString());
-
-        if (list.size()>0) {
-            PoolDownDialogCustomerStation dialog = new PoolDownDialogCustomerStation(getStage(), relationCustomerStation, list);
-            int i = dialog.showDialog();
-            if (i == -1) {
-                relationCustomerStation.setText("");
-            }
-
-            else {
-                customerStation = list.get(i);
-                relationCustomerStation.setText(customerStation.getStationName() + ", " + customerStation.getStationCity());
-                relationCustomerStation.setEditable(false);
-                setRelationTextOnFormIfExist();
-            }
-
-        }
-    }
-
-    private void disableFindProducerStation() {
 
     }
 
-    private void disableFindCustomerStation() {
+    private void prepareFormAccordToResponse() {
 
-    }
+        if ((relation!=null)&&(forwarder!=null)) {
 
-    private void enableFields() {
-        relationDistance.setDisable(false);
-        relationOptional1.setDisable(false);
-        relationOptional2.setDisable(false);
-        relationOptional3.setDisable(false);
-        relationOptional4.setDisable(false);
-        relationCustom.setDisable(false);
-        //btnFindProducerStation.setDisable(true);
-        // btnFindCustomerStation.setDisable(true);
-        btnSave.setDisable(true);
-    }
-
-    private void disableFields() {
-         relationName.setEditable(false);
-         relationDistance.setDisable(true);
-         relationOptional1.setDisable(true);
-         relationOptional2.setDisable(true);
-         relationOptional3.setDisable(true);
-         relationOptional4.setDisable(true);
-         relationCustom.setDisable(true);
-            //btnFindProducerStation.setDisable(true);
-            // btnFindCustomerStation.setDisable(true);
-         btnSave.setDisable(true);
-    }
-
-    private void setRelationTextOnFormIfExist() {
-
-        if ((producerStation!=null)&&(customerStation!=null)) {
-
-            state = new RelationService().ifRelationExist(producerStation.getId(),customerStation.getId());
+            state = new FreightService().ifFreightExist(relation.getId(),forwarder.getId());
 
             switch (state) {
-            case triStateTrue:setFieldsAccordToRelationExist();break;
-            case triStateFalse:setFieldsAccordToRelationNotExist();break;
-            case triStateError:new AlertMessage(
-                            "Fehler",
-                            "Datenbankzugrif Fehler",
-                            "Es konnten keine Daten aus Datenbank abgerufen werden"
-                           );break;
-            }
-        }
-    }
-
-    private void setFieldsAccordToRelationExist() {
-            relation = new RelationService().getRelation(producerStation.getId(),customerStation.getId());
-            if (relation!=null) {
-
-                relationName.setText(relation.getRelationName());
-                relationDistance.setDisable(false);
-                relationDistance.setText(Integer.toString(relation.getDistance()));
-                relationCustom.setDisable(false);
-                relationCustom.setSelected(relation.isIfCustom());
-                btnSave.setDisable(false);
-            }
-            else {
-                new AlertMessage(
+                case triStateTrue:setFieldsFreightExist();break;
+                case triStateFalse:setFieldsFreightNotExist();break;
+                case triStateError:new AlertMessage(
                         "Fehler",
                         "Datenbankzugrif Fehler",
                         "Es konnten keine Daten aus Datenbank abgerufen werden"
-                );
-                getStage().close();
+                );break;
             }
-    }
-
-    private void setFieldsAccordToRelationNotExist() {
-        relationName.setText(
-                producerStation.getStationName()+", "+producerStation.getStationCity()+
-                " - "+customerStation.getStationCity()+" ("+customerStation.getStationName()+")"
-        );
-
-        //relation = new Relation();
-        relationDistance.setDisable(false);
-        //relationDistance.setText(Integer.toString(relation.getDistance()));
-        relationCustom.setDisable(false);
-        //relationCustom.setSelected(relation.isIfCustom());
-        btnSave.setDisable(false);
-
-    }
-
-    private void prepareFieldsToSave() {
-        if (relation==null) {
-            relation = new Relation();
         }
-            relation.setProducerStation(producerStation);
-            relation.setCustomerStation(customerStation);
-            relation.setRelationName(relationName.getText());
-            relation.setDistance(Integer.parseInt(relationDistance.getText()));
-            relation.setIfCustom(relationCustom.isSelected());
-    }  */
+    }
+
+    private void setFieldsFreightExist() {
+        StateOfObjectRequest stateOfObject = new FreightService().getFreight(relation.getId(),forwarder.getId());
+
+        // If Datenbank request goes throw
+        if (stateOfObject.getError()!=true) {
+
+            // We get the freight from StateOfObject
+            freight = (Freight) stateOfObject.getObject();
+
+            // If Freight will be payed per To
+            if (freight.getTyp()==0) {
+                invertFieldstToFrPerToAktiv();
+                setFieldsPerToFromDB(freight);
+            }
+            if (freight.getTyp()==1) {
+                invertFieldstToFrPerToAktiv();
+                setFieldsFlatFromDB(freight);
+            }
+
+            btnSave.setDisable(false);
+            freightHistory.setDisable(false);
+        }
+        else {
+            new AlertMessage(
+                    "Fehler",
+                    "Datenbankzugrif Fehler",
+                    "Es konnten keine Daten aus Datenbank abgerufen werden"
+            );
+            getStage().close();
+        }
+    }
+
+    private void setFieldsFreightNotExist() {
+        btnSave.setDisable(false);
+    }
+
+    private void setFieldsPerToFromDB(Freight freight) {
+        freightPerToRate.setText(Integer.toString(freight.getFreigtPerTo()));
+
+        freightPerToSince.setText(new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(
+                freight.getFreigtPerToSince()));
+        freightPerToNote.setText(freight.getFreigtPerToNote());
+    }
+
+    private void setFieldsFlatFromDB(Freight freight) {
+        freightFlatRate.setText(Integer.toString(freight.getFreigtPerOrder()));
+
+        freightFlatSince.setText(new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(
+                freight.getFreigtPerOrderSince()));
+        freightFlatNote.setText(freight.getFreigtPerOrderNote());
+    }
+
+    private Date validateDateField(String dateString) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-mm-yyyy", Locale.GERMAN);
+
+        Date date = null;
+        try {
+            date = formatter.parse(dateString);
+            return date;
+        }
+        catch (Exception e) {
+            return date;
+        }
+    }
+
+    private Boolean validateFieldsPerTo() {
+
+        if ((freightPerToRate.getText().equals("")) ||
+           (freightPerToSince.getText().equals("")) ||
+           (freightPerToNote.getText().equals("")) ) {
+           return false;
+        }
+        else {
+           return true;
+        }
+    }
+
+    private Boolean validateFieldsFlat() {
+        if ((freightFlatRate.getText().equals("")) ||
+                (freightFlatSince.getText().equals("")) ||
+                (freightFlatNote.getText().equals("")) ) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    private Boolean validateFields() {
+
+        if (checkFreightTo.isSelected())
+            return validateFieldsPerTo();
+        else
+            return validateFieldsFlat();
+    }
 
 
+}
