@@ -16,20 +16,16 @@ public class AlertYesNo {
         alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(title);
         alert.setContentText(message);
-        okButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-        noButton = new ButtonType("Yes", ButtonBar.ButtonData.NO);
-        cancelButton = new ButtonType("Yes", ButtonBar.ButtonData.CANCEL_CLOSE);
-        alert.getButtonTypes().setAll(okButton, noButton, cancelButton);
+        okButton = new ButtonType("Ja", ButtonBar.ButtonData.YES);
+        noButton = new ButtonType("Nein", ButtonBar.ButtonData.NO);
+        alert.getButtonTypes().setAll(noButton,okButton);
     }
 
     public Boolean show() {
-
-
-
         alert.showAndWait().ifPresent(type -> {
-            if (type == ButtonType.OK) {
+            if (type == okButton) {
                 returnVal = true;
-            } else if (type == ButtonType.NO) {
+            } else if (type == noButton) {
                 returnVal = false;
               } else {
                 returnVal = false;

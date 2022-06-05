@@ -4,15 +4,16 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="611.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddFreightController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="665.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddFreightController">
    <children>
-      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="611.0" prefWidth="600.0">
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="665.0" prefWidth="600.0">
          <children>
             <Pane layoutY="-2.0" prefHeight="104.0" prefWidth="345.0" style="-fx-background-color: red;" />
             <Pane layoutX="345.0" layoutY="-2.0" prefHeight="104.0" prefWidth="255.0" style="-fx-background-color: grey;">
@@ -30,51 +31,56 @@
                   <Line endX="43.0" layoutX="116.0" layoutY="71.0" startX="-76.0" startY="1.0" strokeWidth="3.0" />
                </children>
             </Pane>
-            <TextField fx:id="findRelation" layoutX="141.0" layoutY="129.0" prefHeight="30.0" prefWidth="298.0" />
-            <TextField fx:id="findForwarder" layoutX="141.0" layoutY="187.0" prefHeight="30.0" prefWidth="298.0" />
-            <CheckBox fx:id="checkFreightTo" layoutX="140.0" layoutY="315.0" mnemonicParsing="false" />
-            <CheckBox fx:id="checkFreightFlat" layoutX="415.0" layoutY="315.0" mnemonicParsing="false" />
-            <Button fx:id="btnSave" layoutX="241.0" layoutY="540.0" mnemonicParsing="false" onAction="#btnSaveClicked" prefHeight="42.0" prefWidth="147.0" text="Speichern" />
-            <Button fx:id="btnCancel" layoutX="424.0" layoutY="540.0" mnemonicParsing="false" onAction="#btnCancelClicked" prefHeight="42.0" prefWidth="147.0" text="Abbrechen" />
-            <Label layoutX="39.0" layoutY="129.0" prefHeight="30.0" prefWidth="89.0" text="Relation">
+            <TextField fx:id="findRelation" layoutX="141.0" layoutY="161.0" prefHeight="30.0" prefWidth="298.0" />
+            <TextField fx:id="findForwarder" layoutX="141.0" layoutY="219.0" prefHeight="30.0" prefWidth="298.0" />
+            <CheckBox fx:id="checkFreightTo" layoutX="141.0" layoutY="365.0" mnemonicParsing="false" />
+            <CheckBox fx:id="checkFreightFlat" layoutX="416.0" layoutY="365.0" mnemonicParsing="false" />
+            <Button fx:id="btnSave" layoutX="242.0" layoutY="590.0" mnemonicParsing="false" onAction="#btnSaveClicked" prefHeight="42.0" prefWidth="147.0" text="Speichern" />
+            <Button fx:id="btnCancel" layoutX="425.0" layoutY="590.0" mnemonicParsing="false" onAction="#btnCancelClicked" prefHeight="42.0" prefWidth="147.0" text="Abbrechen" />
+            <Label layoutX="39.0" layoutY="161.0" prefHeight="30.0" prefWidth="89.0" text="Relation">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Button fx:id="btnFindRelation" layoutX="461.0" layoutY="131.0" mnemonicParsing="false" onAction="#btnFindRelationClicked" prefHeight="27.0" prefWidth="101.0" text="Suchen" />
-            <Label layoutX="39.0" layoutY="187.0" prefHeight="30.0" prefWidth="101.0" text="Transporteur">
+            <Button fx:id="btnFindRelation" layoutX="461.0" layoutY="163.0" mnemonicParsing="false" onAction="#btnFindRelationClicked" prefHeight="27.0" prefWidth="101.0" text="Suchen" />
+            <Label layoutX="39.0" layoutY="219.0" prefHeight="30.0" prefWidth="101.0" text="Transporteur">
                <font>
                   <Font name="System Font" size="18.0" />
                </font>
             </Label>
-            <Button fx:id="btnFindForwarder" layoutX="461.0" layoutY="189.0" mnemonicParsing="false" onAction="#btnFindForwarderClicked" prefHeight="27.0" prefWidth="101.0" text="Suchen" />
-            <Label layoutX="38.0" layoutY="348.0" prefHeight="27.0" prefWidth="89.0" text="Fracht €/To" />
-            <TextField fx:id="freightPerToRate" layoutX="136.0" layoutY="348.0" prefHeight="27.0" prefWidth="147.0" />
-            <Label layoutX="38.0" layoutY="391.0" prefHeight="27.0" prefWidth="89.0" text="Ab Datum" />
-            <Label layoutX="38.0" layoutY="437.0" prefHeight="27.0" prefWidth="89.0" text="Notiz" />
-            <TextField fx:id="freightPerToNote" layoutX="136.0" layoutY="437.0" prefHeight="27.0" prefWidth="147.0" />
-            <Label layoutX="39.0" layoutY="234.0" prefHeight="42.0" prefWidth="89.0" text="Fracht / Bezeichnung" wrapText="true" />
-            <TextField fx:id="freightName" editable="false" layoutX="137.0" layoutY="234.0" prefHeight="42.0" prefWidth="304.0" />
-            <TextField fx:id="freightPerToSince" layoutX="136.0" layoutY="391.0" prefHeight="27.0" prefWidth="147.0" />
-            <Label layoutX="317.0" layoutY="352.0" prefHeight="27.0" prefWidth="89.0" text="Fracht  €" />
-            <TextField fx:id="freightFlatRate" layoutX="415.0" layoutY="352.0" prefHeight="27.0" prefWidth="147.0" />
-            <Label layoutX="317.0" layoutY="395.0" prefHeight="27.0" prefWidth="89.0" text="Ab Datum" />
-            <Label layoutX="317.0" layoutY="437.0" prefHeight="27.0" prefWidth="89.0" text="Notiz" />
-            <TextField fx:id="freightFlatNote" layoutX="415.0" layoutY="437.0" prefHeight="27.0" prefWidth="147.0" />
-            <TextField fx:id="freightFlatSince" layoutX="415.0" layoutY="395.0" prefHeight="27.0" prefWidth="147.0" />
-            <Label layoutX="38.0" layoutY="315.0" prefHeight="17.0" prefWidth="89.0" text="Fracht per To" />
-            <Label layoutX="317.0" layoutY="315.0" prefHeight="17.0" prefWidth="89.0" text="Fracht pauschal" />
-            <Hyperlink fx:id="freightHistory" layoutX="38.0" layoutY="484.0" onAction="#freightHistoryClicked" prefHeight="25.0" prefWidth="167.0" text="Frachtentwicklung anzeigen" />
-            <Button fx:id="btnNewFreight" ellipsisString="" layoutX="38.0" layoutY="540.0" lineSpacing="1.0" mnemonicParsing="false" onAction="#btnNewFreightClicked" prefHeight="42.0" prefWidth="101.0" text="Neuen Fracht anlegen" textAlignment="CENTER" textFill="#d70505" wrapText="true">
+            <Button fx:id="btnFindForwarder" layoutX="461.0" layoutY="221.0" mnemonicParsing="false" onAction="#btnFindForwarderClicked" prefHeight="27.0" prefWidth="101.0" text="Suchen" />
+            <Label layoutX="39.0" layoutY="398.0" prefHeight="27.0" prefWidth="89.0" text="Fracht €/To" />
+            <TextField fx:id="freightPerToRate" layoutX="137.0" layoutY="398.0" prefHeight="27.0" prefWidth="147.0" />
+            <Label layoutX="39.0" layoutY="441.0" prefHeight="27.0" prefWidth="89.0" text="Ab Datum" />
+            <Label layoutX="39.0" layoutY="487.0" prefHeight="27.0" prefWidth="89.0" text="Notiz" />
+            <TextField fx:id="freightPerToNote" layoutX="137.0" layoutY="487.0" prefHeight="27.0" prefWidth="147.0" />
+            <Label layoutX="39.0" layoutY="266.0" prefHeight="42.0" prefWidth="89.0" text="Fracht / Bezeichnung" wrapText="true" />
+            <TextField fx:id="freightPerToSince" layoutX="137.0" layoutY="441.0" prefHeight="27.0" prefWidth="147.0" />
+            <Label layoutX="318.0" layoutY="402.0" prefHeight="27.0" prefWidth="89.0" text="Fracht  €" />
+            <TextField fx:id="freightFlatRate" layoutX="416.0" layoutY="402.0" prefHeight="27.0" prefWidth="147.0" />
+            <Label layoutX="318.0" layoutY="445.0" prefHeight="27.0" prefWidth="89.0" text="Ab Datum" />
+            <Label layoutX="318.0" layoutY="487.0" prefHeight="27.0" prefWidth="89.0" text="Notiz" />
+            <TextField fx:id="freightFlatNote" layoutX="416.0" layoutY="487.0" prefHeight="27.0" prefWidth="147.0" />
+            <TextField fx:id="freightFlatSince" layoutX="416.0" layoutY="445.0" prefHeight="27.0" prefWidth="147.0" />
+            <Label layoutX="39.0" layoutY="365.0" prefHeight="17.0" prefWidth="89.0" text="Fracht per To" />
+            <Label layoutX="318.0" layoutY="365.0" prefHeight="17.0" prefWidth="89.0" text="Fracht pauschal" />
+            <Hyperlink fx:id="freightHistory" layoutX="39.0" layoutY="534.0" onAction="#freightHistoryClicked" prefHeight="25.0" prefWidth="167.0" text="Frachtentwicklung anzeigen" />
+            <Button fx:id="btnNewFreight" ellipsisString="" layoutX="39.0" layoutY="590.0" lineSpacing="1.0" mnemonicParsing="false" onAction="#btnNewFreightClicked" prefHeight="42.0" prefWidth="101.0" text="Neuen Fracht anlegen" textAlignment="CENTER" textFill="#d70505" wrapText="true">
                <font>
                   <Font size="10.0" />
                </font>
             </Button>
-            <Label fx:id="attentionFreightFlate" layoutX="458.0" layoutY="277.0" prefHeight="63.0" prefWidth="113.0" text="Achtung, wenn Sie Fracht pauschal aktivieren, gehen die Informationen in Felder Fracht per To verlohren" textFill="#f5f2f2" wrapText="true">
+            <Label fx:id="attentionFreightFlate" layoutX="450.0" layoutY="311.0" prefHeight="63.0" prefWidth="123.0" text="Achtung, wenn Sie Fracht pauschal aktivieren, gehen die Informationen in Felder Fracht per To verlohren" textFill="#f5f2f2" wrapText="true">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
+            <Hyperlink fx:id="hilfeLink" layoutX="459.0" layoutY="116.0" onAction="#hilfeLinkClicked" prefHeight="25.0" prefWidth="101.0" text="Hilfe" textAlignment="CENTER" textFill="#06e082" />
+            <TextArea fx:id="freightName" layoutX="140.0" layoutY="266.0" prefHeight="91.0" prefWidth="298.0" wrapText="true">
+               <font>
+                  <Font name="System Bold Italic" size="11.0" />
+               </font>
+            </TextArea>
          </children>
       </Pane>
    </children>

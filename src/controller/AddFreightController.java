@@ -17,6 +17,7 @@ import javafx.scene.paint.Color;
 import service.ForwarderService;
 import service.FreightService;
 import service.RelationService;
+import util.LogoutUtil;
 import util.StateOfObjectRequest;
 import util.TriState;
 import view.AlertMessage;
@@ -29,6 +30,7 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
 
 
 public class AddFreightController extends Controller {
@@ -56,7 +58,7 @@ public class AddFreightController extends Controller {
     private CheckBox checkFreightFlat;
 
     @FXML
-    private TextField freightName;
+    private TextArea freightName;
 
     @FXML
     private TextField freightPerToRate;
@@ -94,6 +96,13 @@ public class AddFreightController extends Controller {
     @FXML
     private Label attentionFreightFlate;
 
+    @FXML
+    private Hyperlink hilfeLink;
+
+    @FXML
+    private void hilfeLinkClicked() {
+
+    }
 
     @FXML
     private void btnFindRelationClicked() {
@@ -115,21 +124,34 @@ public class AddFreightController extends Controller {
 
     if (freight==null) freight = new Freight();
 
-        if (checkFreightTo.isSelected() && (validateDateField(freightPerToSince.getText())!=null)&&(validateFieldsPerTo())) {
+        if (checkFreightTo.isSelected() && (validateDateField(freightPerToSince.getText())!=null)&&
+                (validateFieldsPerTo())&&(freightPerToRate.getText().matches("[0-9]+")))  {
             freight.setTyp(0);
+            freight.setRelation(relation);
+            freight.setForwarder(forwarder);
+            freight.setFreightActive(true);
             freight.setFreigtPerTo(Integer.parseInt(freightPerToRate.getText()));
 
             freight.setFreigtPerToSince(validateDateField(freightPerToSince.getText()));
             freight.setFreigtPerToNote(freightPerToNote.getText());
             new FreightService().saveFreight(freight);
+            new AlertMessage("Fracht gespeichert",relation.getRelationName(),"Fracht für "+forwarder.getForwarderName()+
+                    "wurde gespeichert");
+            getStage().close();
         }
         else {
-            if (checkFreightFlat.isSelected() && (validateDateField(freightFlatSince.getText())!=null)&&validateFieldsFlat()) {
+            if ((checkFreightFlat.isSelected()) && (validateDateField(freightFlatSince.getText())!=null)&&(validateFieldsFlat())
+                    &&(freightFlatRate.getText().matches("[0-9]+"))) {
                 freight.setTyp(1);
+                freight.setRelation(relation);
+                freight.setForwarder(forwarder);
                 freight.setFreigtPerOrder(Integer.parseInt(freightFlatRate.getText()));
                 freight.setFreigtPerOrderSince(validateDateField(freightFlatSince.getText()));
                 freight.setFreigtPerOrderNote(freightFlatNote.getText());
                 new FreightService().saveFreight(freight);
+                new AlertMessage("Fracht gespeichert",relation.getRelationName(),"Fracht für "+forwarder.getForwarderName()+
+                        "wurde gespeichert");
+                getStage().close();
             }
             else {
                 new AlertMessage("Achtung","Eingabefehler","Nicht alle Daten sind korrekt");
@@ -277,13 +299,13 @@ public class AddFreightController extends Controller {
     private void searchAndSetRelation() {
         System.out.println("KeyPressed");
         List<Relation> list = new RelationService().getRelationLikeString(findRelation.getText());
-        System.out.println(list.toString());
-
         if (list.size()>0) {
+            findRelation.setEditable(false);
             PoolDownDialogRelation dialog = new PoolDownDialogRelation(getStage(), findRelation, list);
             int i = dialog.showDialog();
             if (i == -1) {
                 findRelation.setText("");
+                findRelation.setEditable(true);
             }
 
             else {
@@ -364,6 +386,12 @@ public class AddFreightController extends Controller {
             // We get the freight from StateOfObject
             freight = (Freight) stateOfObject.getObject();
 
+            String strFreightName = new String();
+            strFreightName = freight.getForwarder().getForwarderName()+"\n"+
+                    freight.getRelation().getRelationName()+"\n"+"\n"+
+                    "Die Fracht existiert bereits";
+            freightName.setText(strFreightName);
+
             // If Freight will be payed per To
             if (freight.getTyp()==0) {
                 invertFieldstToFrPerToAktiv();
@@ -389,22 +417,38 @@ public class AddFreightController extends Controller {
 
     private void setFieldsFreightNotExist() {
         btnSave.setDisable(false);
+        String strFreightName = new String();
+        strFreightName = forwarder.getForwarderName()+"\n"+
+                relation.getRelationName()+"\n"+"\n"+
+                "Die Fracht wird angelegt";
+        freightName.setText(strFreightName);
+    }
+
+    private void setDisableFieldsFreightExist() {
+        checkFreightFlat.setDisable(true);
+        checkFreightTo.setDisable(true);
     }
 
     private void setFieldsPerToFromDB(Freight freight) {
+        checkFreightTo.setSelected(true);
         freightPerToRate.setText(Integer.toString(freight.getFreigtPerTo()));
-
+        freightPerToRate.setEditable(false);
         freightPerToSince.setText(new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(
                 freight.getFreigtPerToSince()));
+        freightPerToSince.setEditable(false);
         freightPerToNote.setText(freight.getFreigtPerToNote());
+        freightPerToNote.setEditable(false);
     }
 
     private void setFieldsFlatFromDB(Freight freight) {
+        checkFreightFlat.setSelected(true);
         freightFlatRate.setText(Integer.toString(freight.getFreigtPerOrder()));
-
+        freightFlatRate.setEditable(false);
         freightFlatSince.setText(new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(
                 freight.getFreigtPerOrderSince()));
+        freightFlatSince.setEditable(false);
         freightFlatNote.setText(freight.getFreigtPerOrderNote());
+        freightFlatNote.setEditable(false);
     }
 
     private Date validateDateField(String dateString) {
@@ -433,7 +477,7 @@ public class AddFreightController extends Controller {
     }
 
     private Boolean validateFieldsFlat() {
-        if ((freightFlatRate.getText().equals("")) ||
+        if ((freightFlatRate.getText().equals(""))||
                 (freightFlatSince.getText().equals("")) ||
                 (freightFlatNote.getText().equals("")) ) {
             return false;
@@ -444,11 +488,17 @@ public class AddFreightController extends Controller {
     }
 
     private Boolean validateFields() {
+        if ((relation!=null)&&(forwarder!=null)) {
 
-        if (checkFreightTo.isSelected())
-            return validateFieldsPerTo();
-        else
-            return validateFieldsFlat();
+
+            if (checkFreightTo.isSelected())
+                return validateFieldsPerTo();
+            else
+                return validateFieldsFlat();
+        }
+        else {
+            return false;
+        }
     }
 
 

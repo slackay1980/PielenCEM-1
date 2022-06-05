@@ -19,12 +19,9 @@ public class Freight {
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "freight")
     private List<TransportOrder> transportOrders;
 
-
-
     @ManyToOne
     @JoinColumn(name="RELATION_ID")
     private Relation relation;
-
 
     @ManyToOne
     @JoinColumn(name="FORWARDER_ID")
@@ -52,11 +49,8 @@ public class Freight {
     @Column(name = "FREIGHT_PER_ORDER_NOTE")
     private String freigtPerOrderNote;
 
-
-
-
-
-    // @Column(name = "")
+    @Column(name="FREIGHT_ACTIVE")
+    private Boolean freightActive;
 
 
     public Freight() {
@@ -164,5 +158,13 @@ public class Freight {
 
     public void setFreigtPerOrderNote(String freigtPerOrderNote) {
         this.freigtPerOrderNote = freigtPerOrderNote;
+    }
+
+    public Boolean getFreightActive() {
+        return freightActive;
+    }
+
+    public void setFreightActive(Boolean freightActive) {
+        this.freightActive = freightActive;
     }
 }
