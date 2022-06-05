@@ -27,6 +27,8 @@ import view.PoolDownDialogRelation;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -39,6 +41,7 @@ public class AddFreightController extends Controller {
     private Forwarder forwarder = null;
     private Freight freight;
     private TriState state;
+    private Boolean newFreight = false;
 
     public AddFreightController() {
 
@@ -116,13 +119,65 @@ public class AddFreightController extends Controller {
 
     @FXML
     private void btnNewFreightClicked() {
-
+        newFreight = true;
+        checkFreightFlat.setDisable(false);
+        checkFreightTo.setDisable(false);
+        emptyAllFields();
+        invertFieldstToFrRateAktiv();
+        btnNewFreight.setDisable(true);
+        btnSave.setDisable(false);
     }
 
     @FXML
     private void btnSaveClicked() {
 
-    if (freight==null) freight = new Freight();
+        if (newFreight==true) {
+            freight.setFreightActive(false);
+            if (new FreightService().updateFreight(freight)) {
+                setFieldsFreightNotExist();
+                freight = null;
+            }
+            else {
+                new AlertMessage("Achtung","Datenbank Fehler","Keine Änderungen wurden gespeichert");
+                getStage().close();
+            }
+
+
+        }
+
+        saveIfFreightNotExist();
+
+
+    }
+
+    @FXML
+    private void btnCancelClicked() {
+
+        if (new AlertYesNo("Achtung", "Sind Sie sicher").show()) {
+            getStage().close();
+        }
+    }
+
+    @FXML
+    private void freightHistoryClicked() {
+
+    }
+
+
+
+    @FXML
+    private void initialize() {
+        attentionLabelsTo();
+        attentionLabelsFlat();
+        setFlipFLopOnCheckBox();
+        setFieldsToStartState();
+        setKeyHandlerToRelation();
+        setKeyHandlerToForwarder();
+
+    }
+
+    private void saveIfFreightNotExist() {
+        if (freight==null) freight = new Freight();
 
         if (checkFreightTo.isSelected() && (validateDateField(freightPerToSince.getText())!=null)&&
                 (validateFieldsPerTo())&&(freightPerToRate.getText().matches("[0-9]+")))  {
@@ -131,6 +186,12 @@ public class AddFreightController extends Controller {
             freight.setForwarder(forwarder);
             freight.setFreightActive(true);
             freight.setFreigtPerTo(Integer.parseInt(freightPerToRate.getText()));
+            ZoneId zonedId = ZoneId.of("");
+            LocalDate today = LocalDate.now( zonedId );
+            System.out.println( "today : " + today );
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(today.getYear(),today.getMonthValue(),today.getDayOfMonth());
+            freight.setCreateDate(calendar);
 
             freight.setFreigtPerToSince(validateDateField(freightPerToSince.getText()));
             freight.setFreigtPerToNote(freightPerToNote.getText());
@@ -158,32 +219,6 @@ public class AddFreightController extends Controller {
             }
 
         }
-
-    }
-
-    @FXML
-    private void btnCancelClicked() {
-
-        if (new AlertYesNo("Achtung", "Sind Sie sicher").show()) {
-            getStage().close();
-        }
-    }
-
-    @FXML
-    private void freightHistoryClicked() {
-
-    }
-
-
-
-    @FXML
-    private void initialize() {
-        attentionLabelsTo();
-        attentionLabelsFlat();
-        setFlipFLopOnCheckBox();
-        setFieldsToStartState();
-        setKeyHandlerToRelation();
-        setKeyHandlerToForwarder();
 
     }
 
@@ -233,18 +268,34 @@ public class AddFreightController extends Controller {
         freightFlatRate.setDisable(false);
         freightFlatSince.setDisable(false);
         freightFlatNote.setDisable(false);
+        freightFlatRate.setEditable(true);
+        freightFlatSince.setEditable(true);
+        freightFlatNote.setEditable(true);
     }
 
     private void invertFieldstToFrPerToAktiv() {
         freightPerToRate.setDisable(false);
         freightPerToSince.setDisable(false);
         freightPerToNote.setDisable(false);
+        freightPerToRate.setEditable(true);
+        freightPerToSince.setEditable(true);
+        freightPerToNote.setEditable(true);
         freightFlatRate.setText("");
         freightFlatSince.setText("");
         freightFlatNote.setText("");
         freightFlatRate.setDisable(true);
         freightFlatSince.setDisable(true);
         freightFlatNote.setDisable(true);
+    }
+
+    private void emptyAllFields() {
+        freightPerToRate.setText("");
+        freightPerToSince.setText("");
+        freightPerToNote.setText("");
+
+        freightFlatRate.setText("");
+        freightFlatSince.setText("");
+        freightFlatNote.setText("");
     }
 
     private void setFlipFLopOnCheckBox() {
@@ -402,8 +453,8 @@ public class AddFreightController extends Controller {
                 setFieldsFlatFromDB(freight);
             }
 
-            btnSave.setDisable(false);
-            freightHistory.setDisable(false);
+            setDisEnblFieldsFreightExist();
+            setAllFieldsNotEditable();
         }
         else {
             new AlertMessage(
@@ -422,11 +473,25 @@ public class AddFreightController extends Controller {
                 relation.getRelationName()+"\n"+"\n"+
                 "Die Fracht wird angelegt";
         freightName.setText(strFreightName);
+
     }
 
-    private void setDisableFieldsFreightExist() {
+    private void setDisEnblFieldsFreightExist() {
         checkFreightFlat.setDisable(true);
         checkFreightTo.setDisable(true);
+        btnSave.setDisable(true);
+        btnNewFreight.setDisable(false);
+        freightHistory.setDisable(false);
+    }
+
+    private void setAllFieldsNotEditable() {
+        freightFlatNote.setEditable(false);
+        freightFlatRate.setEditable(false);
+        freightFlatSince.setEditable(false);
+
+        freightPerToRate.setEditable(false);
+        freightPerToSince.setEditable(false);
+        freightPerToNote.setEditable(false);
     }
 
     private void setFieldsPerToFromDB(Freight freight) {

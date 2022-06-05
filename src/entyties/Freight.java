@@ -1,6 +1,8 @@
 package entyties;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -52,6 +54,9 @@ public class Freight {
     @Column(name="FREIGHT_ACTIVE")
     private Boolean freightActive;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="CREATE_DATE")
+    private Calendar createDate;
 
     public Freight() {
 
@@ -166,5 +171,13 @@ public class Freight {
 
     public void setFreightActive(Boolean freightActive) {
         this.freightActive = freightActive;
+    }
+
+    public Calendar getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Calendar createDate) {
+        this.createDate = createDate;
     }
 }

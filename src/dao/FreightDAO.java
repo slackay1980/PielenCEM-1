@@ -28,9 +28,10 @@ public class FreightDAO {
     public Boolean getFreightIfExist(int relationId, int forwarderId) throws HibernateException,Exception {
 
         Session session = util.HibernateUtil.getSessionFactory().openSession();
-        String SQLString = "FROM Freight as f WHERE f.relation = :relationId AND f.forwarder =  : forwarderId";
+        String SQLString = "FROM Freight as f WHERE f.relation = :relationId AND f.forwarder =  : forwarderId AND f.freightActive = : ifAktive";
 
         Query query = session.createQuery(SQLString,Freight.class);
+        query.setBoolean("ifAktive", true);
         query.setInteger("relationId",new Integer(relationId));
         query.setInteger("forwarderId",new Integer(forwarderId));
 
@@ -55,9 +56,10 @@ public class FreightDAO {
     public Freight getFreight(int relationId, int forwarderId) throws Exception {
 
         Session session = util.HibernateUtil.getSessionFactory().openSession();
-        String SQLString = "FROM Freight as f WHERE f.relation = :relationId AND f.forwarder =  : forwarderId";
+        String SQLString = "FROM Freight as f WHERE f.relation = :relationId AND f.forwarder =  : forwarderId AND f.freightActive = : ifAktive";
 
         Query query = session.createQuery(SQLString,Freight.class);
+        query.setBoolean("ifAktive", true);
         query.setInteger("relationId",new Integer(relationId));
         query.setInteger("forwarderId",new Integer(forwarderId));
 

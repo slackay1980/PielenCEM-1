@@ -19,6 +19,16 @@ public class FreightService {
         }
     }
 
+    public Boolean updateFreight(Freight freight)  {
+        try {
+            new FreightDAO().updateFreight(freight);
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
+
     public TriState ifFreightExist(int relationId, int forwarderId) {
 
         try {
