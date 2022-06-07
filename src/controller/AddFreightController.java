@@ -42,6 +42,7 @@ public class AddFreightController extends Controller {
     private Freight freight;
     private TriState state;
     private Boolean newFreight = false;
+    private Boolean allValid = false;
 
     public AddFreightController() {
 
@@ -124,28 +125,36 @@ public class AddFreightController extends Controller {
         checkFreightTo.setDisable(false);
         emptyAllFields();
         invertFieldstToFrRateAktiv();
+        invertFieldstToFrPerToAktiv();
         btnNewFreight.setDisable(true);
         btnSave.setDisable(false);
     }
 
     @FXML
     private void btnSaveClicked() {
-
+        allValid = (checkFreightTo.isSelected() && (validateDateField(freightPerToSince.getText())!=null)&&
+                (validateFieldsPerTo())&&(freightPerToRate.getText().matches("[0-9]+")));
         if (newFreight==true) {
-            freight.setFreightActive(false);
-            if (new FreightService().updateFreight(freight)) {
-                setFieldsFreightNotExist();
-                freight = null;
+            FreightService freightService;
+            freightService = new FreightService();
+            if (allValid) {
+                freight.setFreightActive(false);
+                if (freightService.updateFreight(freight)) {
+                    freight = null;
+                    setFieldsFreightNotExist();
+                }
+
+                else {
+                    new AlertMessage("Achtung","Datenbank Fehler","Keine Änderungen wurden gespeichert");
+                    getStage().close();
+                }
             }
-            else {
-                new AlertMessage("Achtung","Datenbank Fehler","Keine Änderungen wurden gespeichert");
-                getStage().close();
-            }
+
 
 
         }
 
-        saveIfFreightNotExist();
+        saveIfFreightNotExist(allValid);
 
 
     }
@@ -176,25 +185,28 @@ public class AddFreightController extends Controller {
 
     }
 
-    private void saveIfFreightNotExist() {
+    private Calendar getTimeStamp() {
+        ZoneId zonedId = ZoneId.of("UTC");
+        LocalDate today = LocalDate.now( zonedId );
+        System.out.println( "today : " + today );
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(today.getYear(),today.getMonthValue(),today.getDayOfMonth());
+        return calendar;
+    }
+
+    private void saveIfFreightNotExist(Boolean allValid) {
         if (freight==null) freight = new Freight();
 
-        if (checkFreightTo.isSelected() && (validateDateField(freightPerToSince.getText())!=null)&&
-                (validateFieldsPerTo())&&(freightPerToRate.getText().matches("[0-9]+")))  {
+        freight.setFreightActive(true);
+        if (allValid)  {
             freight.setTyp(0);
             freight.setRelation(relation);
             freight.setForwarder(forwarder);
             freight.setFreightActive(true);
             freight.setFreigtPerTo(Integer.parseInt(freightPerToRate.getText()));
-            ZoneId zonedId = ZoneId.of("");
-            LocalDate today = LocalDate.now( zonedId );
-            System.out.println( "today : " + today );
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(today.getYear(),today.getMonthValue(),today.getDayOfMonth());
-            freight.setCreateDate(calendar);
-
             freight.setFreigtPerToSince(validateDateField(freightPerToSince.getText()));
             freight.setFreigtPerToNote(freightPerToNote.getText());
+            freight.setCreateDate(getTimeStamp());
             new FreightService().saveFreight(freight);
             new AlertMessage("Fracht gespeichert",relation.getRelationName(),"Fracht für "+forwarder.getForwarderName()+
                     "wurde gespeichert");
@@ -209,6 +221,7 @@ public class AddFreightController extends Controller {
                 freight.setFreigtPerOrder(Integer.parseInt(freightFlatRate.getText()));
                 freight.setFreigtPerOrderSince(validateDateField(freightFlatSince.getText()));
                 freight.setFreigtPerOrderNote(freightFlatNote.getText());
+                freight.setCreateDate(getTimeStamp());
                 new FreightService().saveFreight(freight);
                 new AlertMessage("Fracht gespeichert",relation.getRelationName(),"Fracht für "+forwarder.getForwarderName()+
                         "wurde gespeichert");
